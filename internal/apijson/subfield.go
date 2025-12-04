@@ -1,7 +1,7 @@
 package apijson
 
 import (
-	"github.com/stainless-sdks/gocloudcix-go/packages/respjson"
+	"github.com/CloudCIX/gocloudcix/packages/respjson"
 	"reflect"
 )
 

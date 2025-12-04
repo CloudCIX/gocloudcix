@@ -3,7 +3,7 @@ package param
 import (
 	"encoding/json"
 	"fmt"
-	shimjson "github.com/stainless-sdks/gocloudcix-go/internal/encoding/json"
+	shimjson "github.com/CloudCIX/gocloudcix/internal/encoding/json"
 	"time"
 )
 

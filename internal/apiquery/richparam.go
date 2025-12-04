@@ -1,7 +1,7 @@
 package apiquery
 
 import (
-	"github.com/stainless-sdks/gocloudcix-go/packages/param"
+	"github.com/CloudCIX/gocloudcix/packages/param"
 	"reflect"
 )
 

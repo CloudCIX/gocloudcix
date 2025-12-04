@@ -3,8 +3,8 @@ package respjson_test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stainless-sdks/gocloudcix-go/internal/apijson"
-	rj "github.com/stainless-sdks/gocloudcix-go/packages/respjson"
+	"github.com/CloudCIX/gocloudcix/internal/apijson"
+	rj "github.com/CloudCIX/gocloudcix/packages/respjson"
 	"reflect"
 	"testing"
 )

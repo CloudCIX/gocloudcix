@@ -8,8 +8,8 @@ import (
 	"os"
 	"slices"
 
-	"github.com/stainless-sdks/gocloudcix-go/internal/requestconfig"
-	"github.com/stainless-sdks/gocloudcix-go/option"
+	"github.com/CloudCIX/gocloudcix/internal/requestconfig"
+	"github.com/CloudCIX/gocloudcix/option"
 )
 
 // Client creates a struct with services and top level methods that help with

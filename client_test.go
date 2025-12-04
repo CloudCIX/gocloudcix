@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stainless-sdks/gocloudcix-go"
-	"github.com/stainless-sdks/gocloudcix-go/internal"
-	"github.com/stainless-sdks/gocloudcix-go/option"
+	"github.com/CloudCIX/gocloudcix"
+	"github.com/CloudCIX/gocloudcix/internal"
+	"github.com/CloudCIX/gocloudcix/option"
 )
 
 type closureTransport struct {
