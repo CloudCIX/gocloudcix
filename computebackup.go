@@ -41,29 +41,44 @@ func NewComputeBackupService(opts ...option.RequestOption) (r ComputeBackupServi
 // Create a new backup from a running compute instance (LXD or Hyper-V). Specify
 // the backup type, instance to backup and project. The instance must be in a
 // running state to create a backup.
-func (r *ComputeBackupService) New(ctx context.Context, body ComputeBackupNewParams, opts ...option.RequestOption) (res *ComputeBackupResponse, err error) {
+func (r *ComputeBackupService) New(ctx context.Context, body ComputeBackupNewParams, opts ...option.RequestOption) (res *ComputeBackup, err error) {
+	var env ComputeBackupResponse
 	opts = slices.Concat(r.Options, opts)
 	path := "compute/backups/"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Retrieve detailed information about a specific backup, including its type (LXD
 // or Hyper-V), associated instance, project, validity timestamp, and current
 // state.
-func (r *ComputeBackupService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ComputeBackupResponse, err error) {
+func (r *ComputeBackupService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ComputeBackup, err error) {
+	var env ComputeBackupResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("compute/backups/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Update a backup to change its name or state. Set state to delete to initiate
 // backup deletion and free up repository storage space.
-func (r *ComputeBackupService) Update(ctx context.Context, id int64, body ComputeBackupUpdateParams, opts ...option.RequestOption) (res *ComputeBackupResponse, err error) {
+func (r *ComputeBackupService) Update(ctx context.Context, id int64, body ComputeBackupUpdateParams, opts ...option.RequestOption) (res *ComputeBackup, err error) {
+	var env ComputeBackupResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("compute/backups/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
