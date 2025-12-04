@@ -41,18 +41,18 @@ func NewComputeGPUService(opts ...option.RequestOption) (r ComputeGPUService) {
 // Retrieve detailed information about a specific GPU resource, including its
 // attached LXD instance, capacity specifications, current state, and project
 // information.
-func (r *ComputeGPUService) Get(ctx context.Context, pk int64, opts ...option.RequestOption) (res *ComputeGPUResponse, err error) {
+func (r *ComputeGPUService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ComputeGPUResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("compute/gpus/%v/", pk)
+	path := fmt.Sprintf("compute/gpus/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
 
 // Update a GPU resource to change its state. Set state to delete to initiate
 // detachment from the LXD instance.
-func (r *ComputeGPUService) Update(ctx context.Context, pk int64, body ComputeGPUUpdateParams, opts ...option.RequestOption) (res *ComputeGPUResponse, err error) {
+func (r *ComputeGPUService) Update(ctx context.Context, id int64, body ComputeGPUUpdateParams, opts ...option.RequestOption) (res *ComputeGPUResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("compute/gpus/%v/", pk)
+	path := fmt.Sprintf("compute/gpus/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
 }

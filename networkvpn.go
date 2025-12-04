@@ -48,18 +48,18 @@ func (r *NetworkVpnService) New(ctx context.Context, body NetworkVpnNewParams, o
 
 // Attempt to read a Network VPN Resource record by the given `id`, returning a 404
 // if it does not exist
-func (r *NetworkVpnService) Get(ctx context.Context, pk int64, opts ...option.RequestOption) (res *NetworkVpnResponse, err error) {
+func (r *NetworkVpnService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *NetworkVpnResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("network/vpns/%v/", pk)
+	path := fmt.Sprintf("network/vpns/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
 
 // Attempt to update a Network VPN Resource record by the given `id`, returning a
 // 404 if it does not exist
-func (r *NetworkVpnService) Update(ctx context.Context, pk int64, body NetworkVpnUpdateParams, opts ...option.RequestOption) (res *NetworkVpnResponse, err error) {
+func (r *NetworkVpnService) Update(ctx context.Context, id int64, body NetworkVpnUpdateParams, opts ...option.RequestOption) (res *NetworkVpnResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("network/vpns/%v/", pk)
+	path := fmt.Sprintf("network/vpns/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
 }

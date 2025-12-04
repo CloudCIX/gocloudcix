@@ -51,9 +51,9 @@ func (r *StorageVolumeService) New(ctx context.Context, body StorageVolumeNewPar
 
 // Retrieve detailed information about a specific storage volume including its
 // type, capacity, mount status, and associated instances.
-func (r *StorageVolumeService) Get(ctx context.Context, pk int64, opts ...option.RequestOption) (res *StorageVolumesResponse, err error) {
+func (r *StorageVolumeService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *StorageVolumesResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("storage/volumes/%v/", pk)
+	path := fmt.Sprintf("storage/volumes/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -61,9 +61,9 @@ func (r *StorageVolumeService) Get(ctx context.Context, pk int64, opts ...option
 // Update a storage volume's configuration. Modify volume name, increase storage
 // capacity (cannot decrease), mount/unmount from instances (Ceph), or trigger
 // state changes for resource management.
-func (r *StorageVolumeService) Update(ctx context.Context, pk int64, body StorageVolumeUpdateParams, opts ...option.RequestOption) (res *StorageVolumesResponse, err error) {
+func (r *StorageVolumeService) Update(ctx context.Context, id int64, body StorageVolumeUpdateParams, opts ...option.RequestOption) (res *StorageVolumesResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("storage/volumes/%v/", pk)
+	path := fmt.Sprintf("storage/volumes/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
 }

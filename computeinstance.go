@@ -51,9 +51,9 @@ func (r *ComputeInstanceService) New(ctx context.Context, body ComputeInstanceNe
 // Retrieve detailed information about a specific compute instance, including its
 // type (LXD or Hyper-V), resource specifications, network interfaces, OS image,
 // current state, and project information.
-func (r *ComputeInstanceService) Get(ctx context.Context, pk int64, opts ...option.RequestOption) (res *ComputeInstanceResponse, err error) {
+func (r *ComputeInstanceService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ComputeInstanceResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("compute/instances/%v/", pk)
+	path := fmt.Sprintf("compute/instances/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -62,9 +62,9 @@ func (r *ComputeInstanceService) Get(ctx context.Context, pk int64, opts ...opti
 // can update resource specifications (CPU, RAM, storage), network interfaces, or
 // change the instance state (stop, restart, delete, update_running,
 // update_stopped).
-func (r *ComputeInstanceService) Update(ctx context.Context, pk int64, body ComputeInstanceUpdateParams, opts ...option.RequestOption) (res *ComputeInstanceResponse, err error) {
+func (r *ComputeInstanceService) Update(ctx context.Context, id int64, body ComputeInstanceUpdateParams, opts ...option.RequestOption) (res *ComputeInstanceResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("compute/instances/%v/", pk)
+	path := fmt.Sprintf("compute/instances/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
 }

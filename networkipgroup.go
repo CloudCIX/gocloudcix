@@ -50,9 +50,9 @@ func (r *NetworkIPGroupService) New(ctx context.Context, body NetworkIPGroupNewP
 
 // Retrieve detailed information about a specific Network IP Group including its
 // name, IP version, and list of CIDR networks.
-func (r *NetworkIPGroupService) Get(ctx context.Context, pk int64, opts ...option.RequestOption) (res *NetworkIPGroupResponse, err error) {
+func (r *NetworkIPGroupService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *NetworkIPGroupResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("network/ip_groups/%v/", pk)
+	path := fmt.Sprintf("network/ip_groups/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -60,9 +60,9 @@ func (r *NetworkIPGroupService) Get(ctx context.Context, pk int64, opts ...optio
 // Update a Network IP Group's configuration. Modify the group name, IP version, or
 // the list of CIDR networks included in the group. Only project type Network IP
 // Groups can be updated.
-func (r *NetworkIPGroupService) Update(ctx context.Context, pk int64, body NetworkIPGroupUpdateParams, opts ...option.RequestOption) (res *NetworkIPGroupResponse, err error) {
+func (r *NetworkIPGroupService) Update(ctx context.Context, id int64, body NetworkIPGroupUpdateParams, opts ...option.RequestOption) (res *NetworkIPGroupResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("network/ip_groups/%v/", pk)
+	path := fmt.Sprintf("network/ip_groups/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
 }
@@ -105,10 +105,10 @@ func (r *NetworkIPGroupService) List(ctx context.Context, query NetworkIPGroupLi
 
 // Delete an Network IP Group from the system. Only project type Network IP Groups
 // can be updated. Groups currently in use by firewall rules cannot be deleted.
-func (r *NetworkIPGroupService) Delete(ctx context.Context, pk int64, opts ...option.RequestOption) (err error) {
+func (r *NetworkIPGroupService) Delete(ctx context.Context, id int64, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
-	path := fmt.Sprintf("network/ip_groups/%v/", pk)
+	path := fmt.Sprintf("network/ip_groups/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
 	return
 }

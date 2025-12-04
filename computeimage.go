@@ -38,9 +38,9 @@ func NewComputeImageService(opts ...option.RequestOption) (r ComputeImageService
 
 // Retrieve detailed information about a specific operating system image, including
 // its SKU name, filename, and OS variant.
-func (r *ComputeImageService) Get(ctx context.Context, pk int64, opts ...option.RequestOption) (res *ComputeImageGetResponse, err error) {
+func (r *ComputeImageService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ComputeImageGetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("compute/images/%v/", pk)
+	path := fmt.Sprintf("compute/images/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
