@@ -39,28 +39,43 @@ func NewNetworkVpnService(opts ...option.RequestOption) (r NetworkVpnService) {
 }
 
 // Create a new Network VPN Resource entry using data given by user.
-func (r *NetworkVpnService) New(ctx context.Context, body NetworkVpnNewParams, opts ...option.RequestOption) (res *NetworkVpnResponse, err error) {
+func (r *NetworkVpnService) New(ctx context.Context, body NetworkVpnNewParams, opts ...option.RequestOption) (res *NetworkVpn, err error) {
+	var env NetworkVpnResponse
 	opts = slices.Concat(r.Options, opts)
 	path := "network/vpns/"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Attempt to read a Network VPN Resource record by the given `id`, returning a 404
 // if it does not exist
-func (r *NetworkVpnService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *NetworkVpnResponse, err error) {
+func (r *NetworkVpnService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *NetworkVpn, err error) {
+	var env NetworkVpnResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("network/vpns/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Attempt to update a Network VPN Resource record by the given `id`, returning a
 // 404 if it does not exist
-func (r *NetworkVpnService) Update(ctx context.Context, id int64, body NetworkVpnUpdateParams, opts ...option.RequestOption) (res *NetworkVpnResponse, err error) {
+func (r *NetworkVpnService) Update(ctx context.Context, id int64, body NetworkVpnUpdateParams, opts ...option.RequestOption) (res *NetworkVpn, err error) {
+	var env NetworkVpnResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("network/vpns/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 

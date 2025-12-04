@@ -42,30 +42,45 @@ func NewNetworkFirewallService(opts ...option.RequestOption) (r NetworkFirewallS
 // type (project for fine-grained rules or geo for country-based filtering),
 // project, router, and the list of rules to apply. Rules are evaluated in the
 // order provided.
-func (r *NetworkFirewallService) New(ctx context.Context, body NetworkFirewallNewParams, opts ...option.RequestOption) (res *NetworkFirewallResponse, err error) {
+func (r *NetworkFirewallService) New(ctx context.Context, body NetworkFirewallNewParams, opts ...option.RequestOption) (res *NetworkFirewall, err error) {
+	var env NetworkFirewallResponse
 	opts = slices.Concat(r.Options, opts)
 	path := "network/firewalls/"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Retrieve detailed information about a specific firewall configuration, including
 // its type (project or geo), associated router, complete list of rules, and
 // current state.
-func (r *NetworkFirewallService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *NetworkFirewallResponse, err error) {
+func (r *NetworkFirewallService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *NetworkFirewall, err error) {
+	var env NetworkFirewallResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("network/firewalls/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Update a firewall configuration to modify its name, rules, or state. You can
 // replace the entire rule list or change the firewall state to update_running or
 // delete.
-func (r *NetworkFirewallService) Update(ctx context.Context, id int64, body NetworkFirewallUpdateParams, opts ...option.RequestOption) (res *NetworkFirewallResponse, err error) {
+func (r *NetworkFirewallService) Update(ctx context.Context, id int64, body NetworkFirewallUpdateParams, opts ...option.RequestOption) (res *NetworkFirewall, err error) {
+	var env NetworkFirewallResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("network/firewalls/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
@@ -461,7 +476,7 @@ type NetworkFirewallNewParamsRule struct {
 	//   - `Private`: Represents connections between the CloudCIX Project networks.
 	//   - `VPNS2S`: Represents connections between the CloudCIX Project Networks and the
 	//     Customers' on-premises network.
-	Zone any `json:"zone,omitzero"`
+	Zone param.Opt[string] `json:"zone,omitzero"`
 	paramObj
 }
 

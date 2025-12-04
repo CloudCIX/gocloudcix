@@ -49,20 +49,30 @@ func NewNetworkRouterService(opts ...option.RequestOption) (r NetworkRouterServi
 //
 // One or more of the Network Router of the type "static_route" can be added to the
 // Project to manage mapping a destination network to a nexthop IP.
-func (r *NetworkRouterService) New(ctx context.Context, body NetworkRouterNewParams, opts ...option.RequestOption) (res *NetworkRouterResponse, err error) {
+func (r *NetworkRouterService) New(ctx context.Context, body NetworkRouterNewParams, opts ...option.RequestOption) (res *NetworkRouter, err error) {
+	var env NetworkRouterResponse
 	opts = slices.Concat(r.Options, opts)
 	path := "network/routers/"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Retrieve detailed information about a specific network router configuration,
 // including its type (router or static_route), associated networking details, and
 // current state.
-func (r *NetworkRouterService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *NetworkRouterResponse, err error) {
+func (r *NetworkRouterService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *NetworkRouter, err error) {
+	var env NetworkRouterResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("network/routers/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
@@ -71,10 +81,15 @@ func (r *NetworkRouterService) Get(ctx context.Context, id int64, opts ...option
 // CIDR ranges. When updating existing networks, reference them by VLAN ID.
 //
 // For static routes, they can be renamed or have there state changed,
-func (r *NetworkRouterService) Update(ctx context.Context, id int64, body NetworkRouterUpdateParams, opts ...option.RequestOption) (res *NetworkRouterResponse, err error) {
+func (r *NetworkRouterService) Update(ctx context.Context, id int64, body NetworkRouterUpdateParams, opts ...option.RequestOption) (res *NetworkRouter, err error) {
+	var env NetworkRouterResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("network/routers/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 

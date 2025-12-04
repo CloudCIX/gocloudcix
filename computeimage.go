@@ -38,10 +38,15 @@ func NewComputeImageService(opts ...option.RequestOption) (r ComputeImageService
 
 // Retrieve detailed information about a specific operating system image, including
 // its SKU name, filename, and OS variant.
-func (r *ComputeImageService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ComputeImageGetResponse, err error) {
+func (r *ComputeImageService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ComputeImage, err error) {
+	var env ComputeImageGetResponseEnvelope
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("compute/images/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
@@ -106,22 +111,6 @@ func (r *ComputeImage) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type ComputeImageGetResponse struct {
-	Content ComputeImage `json:"content"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Content     respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r ComputeImageGetResponse) RawJSON() string { return r.JSON.raw }
-func (r *ComputeImageGetResponse) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
 type ComputeImageListResponse struct {
 	Metadata ListMetadata   `json:"_metadata"`
 	Content  []ComputeImage `json:"content"`
@@ -146,6 +135,22 @@ type ComputeImageListResponse struct {
 // Returns the unmodified JSON received from the API
 func (r ComputeImageListResponse) RawJSON() string { return r.JSON.raw }
 func (r *ComputeImageListResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type ComputeImageGetResponseEnvelope struct {
+	Content ComputeImage `json:"content"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Content     respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ComputeImageGetResponseEnvelope) RawJSON() string { return r.JSON.raw }
+func (r *ComputeImageGetResponseEnvelope) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
