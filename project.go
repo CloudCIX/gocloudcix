@@ -50,18 +50,18 @@ func (r *ProjectService) New(ctx context.Context, body ProjectNewParams, opts ..
 
 // Retrieve detailed information about a specific project, including its region,
 // address, manager, creation date, and associated notes.
-func (r *ProjectService) Get(ctx context.Context, pk int64, opts ...option.RequestOption) (res *ProjectResponse, err error) {
+func (r *ProjectService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ProjectResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("project/%v/", pk)
+	path := fmt.Sprintf("project/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
 
 // Update a project to modify its name or notes. Projects cannot be moved between
 // regions after creation.
-func (r *ProjectService) Update(ctx context.Context, pk int64, body ProjectUpdateParams, opts ...option.RequestOption) (res *ProjectResponse, err error) {
+func (r *ProjectService) Update(ctx context.Context, id int64, body ProjectUpdateParams, opts ...option.RequestOption) (res *ProjectResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("project/%v/", pk)
+	path := fmt.Sprintf("project/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
 }

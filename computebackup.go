@@ -51,18 +51,18 @@ func (r *ComputeBackupService) New(ctx context.Context, body ComputeBackupNewPar
 // Retrieve detailed information about a specific backup, including its type (LXD
 // or Hyper-V), associated instance, project, validity timestamp, and current
 // state.
-func (r *ComputeBackupService) Get(ctx context.Context, pk int64, opts ...option.RequestOption) (res *ComputeBackupResponse, err error) {
+func (r *ComputeBackupService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ComputeBackupResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("compute/backups/%v/", pk)
+	path := fmt.Sprintf("compute/backups/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
 
 // Update a backup to change its name or state. Set state to delete to initiate
 // backup deletion and free up repository storage space.
-func (r *ComputeBackupService) Update(ctx context.Context, pk int64, body ComputeBackupUpdateParams, opts ...option.RequestOption) (res *ComputeBackupResponse, err error) {
+func (r *ComputeBackupService) Update(ctx context.Context, id int64, body ComputeBackupUpdateParams, opts ...option.RequestOption) (res *ComputeBackupResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("compute/backups/%v/", pk)
+	path := fmt.Sprintf("compute/backups/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
 }

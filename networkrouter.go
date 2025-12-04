@@ -59,9 +59,9 @@ func (r *NetworkRouterService) New(ctx context.Context, body NetworkRouterNewPar
 // Retrieve detailed information about a specific network router configuration,
 // including its type (router or static_route), associated networking details, and
 // current state.
-func (r *NetworkRouterService) Get(ctx context.Context, pk int64, opts ...option.RequestOption) (res *NetworkRouterResponse, err error) {
+func (r *NetworkRouterService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *NetworkRouterResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("network/routers/%v/", pk)
+	path := fmt.Sprintf("network/routers/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -71,9 +71,9 @@ func (r *NetworkRouterService) Get(ctx context.Context, pk int64, opts ...option
 // CIDR ranges. When updating existing networks, reference them by VLAN ID.
 //
 // For static routes, they can be renamed or have there state changed,
-func (r *NetworkRouterService) Update(ctx context.Context, pk int64, body NetworkRouterUpdateParams, opts ...option.RequestOption) (res *NetworkRouterResponse, err error) {
+func (r *NetworkRouterService) Update(ctx context.Context, id int64, body NetworkRouterUpdateParams, opts ...option.RequestOption) (res *NetworkRouterResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("network/routers/%v/", pk)
+	path := fmt.Sprintf("network/routers/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
 }

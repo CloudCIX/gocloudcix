@@ -51,18 +51,18 @@ func (r *ComputeSnapshotService) New(ctx context.Context, body ComputeSnapshotNe
 // Retrieve detailed information about a specific snapshot, including its type (LXD
 // or Hyper-V), associated instance, project, creation timestamp, and current
 // state.
-func (r *ComputeSnapshotService) Get(ctx context.Context, pk int64, opts ...option.RequestOption) (res *ComputeSnapshotResponse, err error) {
+func (r *ComputeSnapshotService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ComputeSnapshotResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("compute/snapshots/%v/", pk)
+	path := fmt.Sprintf("compute/snapshots/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
 
 // Update a snapshot to change its name or state. Set state to delete to initiate
 // snapshot deletion and free up storage space.
-func (r *ComputeSnapshotService) Update(ctx context.Context, pk int64, body ComputeSnapshotUpdateParams, opts ...option.RequestOption) (res *ComputeSnapshotResponse, err error) {
+func (r *ComputeSnapshotService) Update(ctx context.Context, id int64, body ComputeSnapshotUpdateParams, opts ...option.RequestOption) (res *ComputeSnapshotResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	path := fmt.Sprintf("compute/snapshots/%v/", pk)
+	path := fmt.Sprintf("compute/snapshots/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
 }
