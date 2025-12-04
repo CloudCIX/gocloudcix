@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0 (2025-12-04)
+
+Full Changelog: [v0.1.1...v0.2.0](https://github.com/CloudCIX/gocloudcix/compare/v0.1.1...v0.2.0)
+
+### Features
+
+* **api:** manual updates ([52e803b](https://github.com/CloudCIX/gocloudcix/commit/52e803b6bc57e00098c83fce45b7efb83cc314a9))
+
 ## 0.1.1 (2025-12-04)
 
 Full Changelog: [v0.1.0...v0.1.1](https://github.com/CloudCIX/gocloudcix/compare/v0.1.0...v0.1.1)
