@@ -41,29 +41,44 @@ func NewComputeSnapshotService(opts ...option.RequestOption) (r ComputeSnapshotS
 // Create a new snapshot from a running compute instance (LXD or Hyper-V). Specify
 // the snapshot type, instance to snapshot, and project. The instance must be in a
 // running state to create a snapshot.
-func (r *ComputeSnapshotService) New(ctx context.Context, body ComputeSnapshotNewParams, opts ...option.RequestOption) (res *ComputeSnapshotResponse, err error) {
+func (r *ComputeSnapshotService) New(ctx context.Context, body ComputeSnapshotNewParams, opts ...option.RequestOption) (res *ComputeSnapshot, err error) {
+	var env ComputeSnapshotResponse
 	opts = slices.Concat(r.Options, opts)
 	path := "compute/snapshots/"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Retrieve detailed information about a specific snapshot, including its type (LXD
 // or Hyper-V), associated instance, project, creation timestamp, and current
 // state.
-func (r *ComputeSnapshotService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ComputeSnapshotResponse, err error) {
+func (r *ComputeSnapshotService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ComputeSnapshot, err error) {
+	var env ComputeSnapshotResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("compute/snapshots/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Update a snapshot to change its name or state. Set state to delete to initiate
 // snapshot deletion and free up storage space.
-func (r *ComputeSnapshotService) Update(ctx context.Context, id int64, body ComputeSnapshotUpdateParams, opts ...option.RequestOption) (res *ComputeSnapshotResponse, err error) {
+func (r *ComputeSnapshotService) Update(ctx context.Context, id int64, body ComputeSnapshotUpdateParams, opts ...option.RequestOption) (res *ComputeSnapshot, err error) {
+	var env ComputeSnapshotResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("compute/snapshots/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 

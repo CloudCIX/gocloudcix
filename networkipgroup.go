@@ -41,29 +41,44 @@ func NewNetworkIPGroupService(opts ...option.RequestOption) (r NetworkIPGroupSer
 // Create a new Network IP Group. Specify a name, IP version (IPv4 or IPv6), and a
 // list of CIDR networks to include in the group. Groups can be used in firewall
 // rules for access control. Only project type Network IP Groups can be created.
-func (r *NetworkIPGroupService) New(ctx context.Context, body NetworkIPGroupNewParams, opts ...option.RequestOption) (res *NetworkIPGroupResponse, err error) {
+func (r *NetworkIPGroupService) New(ctx context.Context, body NetworkIPGroupNewParams, opts ...option.RequestOption) (res *NetworkIPGroup, err error) {
+	var env NetworkIPGroupResponse
 	opts = slices.Concat(r.Options, opts)
 	path := "network/ip_groups/"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Retrieve detailed information about a specific Network IP Group including its
 // name, IP version, and list of CIDR networks.
-func (r *NetworkIPGroupService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *NetworkIPGroupResponse, err error) {
+func (r *NetworkIPGroupService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *NetworkIPGroup, err error) {
+	var env NetworkIPGroupResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("network/ip_groups/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Update a Network IP Group's configuration. Modify the group name, IP version, or
 // the list of CIDR networks included in the group. Only project type Network IP
 // Groups can be updated.
-func (r *NetworkIPGroupService) Update(ctx context.Context, id int64, body NetworkIPGroupUpdateParams, opts ...option.RequestOption) (res *NetworkIPGroupResponse, err error) {
+func (r *NetworkIPGroupService) Update(ctx context.Context, id int64, body NetworkIPGroupUpdateParams, opts ...option.RequestOption) (res *NetworkIPGroup, err error) {
+	var env NetworkIPGroupResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("network/ip_groups/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 

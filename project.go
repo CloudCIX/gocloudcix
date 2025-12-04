@@ -41,28 +41,43 @@ func NewProjectService(opts ...option.RequestOption) (r ProjectService) {
 // Create a new cloud project in a specified region. Projects provide isolated
 // network environments for deploying and managing your cloud resources. Specify
 // the region and optionally provide a name and notes.
-func (r *ProjectService) New(ctx context.Context, body ProjectNewParams, opts ...option.RequestOption) (res *ProjectResponse, err error) {
+func (r *ProjectService) New(ctx context.Context, body ProjectNewParams, opts ...option.RequestOption) (res *Project, err error) {
+	var env ProjectResponse
 	opts = slices.Concat(r.Options, opts)
 	path := "project/"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Retrieve detailed information about a specific project, including its region,
 // address, manager, creation date, and associated notes.
-func (r *ProjectService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ProjectResponse, err error) {
+func (r *ProjectService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *Project, err error) {
+	var env ProjectResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("project/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Update a project to modify its name or notes. Projects cannot be moved between
 // regions after creation.
-func (r *ProjectService) Update(ctx context.Context, id int64, body ProjectUpdateParams, opts ...option.RequestOption) (res *ProjectResponse, err error) {
+func (r *ProjectService) Update(ctx context.Context, id int64, body ProjectUpdateParams, opts ...option.RequestOption) (res *Project, err error) {
+	var env ProjectResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("project/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 

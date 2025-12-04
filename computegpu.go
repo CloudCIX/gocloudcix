@@ -41,19 +41,29 @@ func NewComputeGPUService(opts ...option.RequestOption) (r ComputeGPUService) {
 // Retrieve detailed information about a specific GPU resource, including its
 // attached LXD instance, capacity specifications, current state, and project
 // information.
-func (r *ComputeGPUService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ComputeGPUResponse, err error) {
+func (r *ComputeGPUService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ComputeGPU, err error) {
+	var env ComputeGPUResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("compute/gpus/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Update a GPU resource to change its state. Set state to delete to initiate
 // detachment from the LXD instance.
-func (r *ComputeGPUService) Update(ctx context.Context, id int64, body ComputeGPUUpdateParams, opts ...option.RequestOption) (res *ComputeGPUResponse, err error) {
+func (r *ComputeGPUService) Update(ctx context.Context, id int64, body ComputeGPUUpdateParams, opts ...option.RequestOption) (res *ComputeGPU, err error) {
+	var env ComputeGPUResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("compute/gpus/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
@@ -102,10 +112,15 @@ func (r *ComputeGPUService) List(ctx context.Context, query ComputeGPUListParams
 // Attach a GPU hardware accelerator to a running LXD instance. Specify the target
 // LXD instance ID, project, and GPU specifications (SKUs) to provision and attach
 // the GPU resource.
-func (r *ComputeGPUService) Attach(ctx context.Context, body ComputeGPUAttachParams, opts ...option.RequestOption) (res *ComputeGPUResponse, err error) {
+func (r *ComputeGPUService) Attach(ctx context.Context, body ComputeGPUAttachParams, opts ...option.RequestOption) (res *ComputeGPU, err error) {
+	var env ComputeGPUResponse
 	opts = slices.Concat(r.Options, opts)
 	path := "compute/gpus/"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 

@@ -42,29 +42,44 @@ func NewStorageVolumeService(opts ...option.RequestOption) (r StorageVolumeServi
 // storage capacity using SKUs, and configuration options. Ceph volumes can be
 // mounted to multiple LXD instances. Hyper-V volumes are attached as secondary
 // drives to Hyper-V instances.
-func (r *StorageVolumeService) New(ctx context.Context, body StorageVolumeNewParams, opts ...option.RequestOption) (res *StorageVolumesResponse, err error) {
+func (r *StorageVolumeService) New(ctx context.Context, body StorageVolumeNewParams, opts ...option.RequestOption) (res *StorageVolumes, err error) {
+	var env StorageVolumesResponse
 	opts = slices.Concat(r.Options, opts)
 	path := "storage/volumes/"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Retrieve detailed information about a specific storage volume including its
 // type, capacity, mount status, and associated instances.
-func (r *StorageVolumeService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *StorageVolumesResponse, err error) {
+func (r *StorageVolumeService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *StorageVolumes, err error) {
+	var env StorageVolumesResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("storage/volumes/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
 // Update a storage volume's configuration. Modify volume name, increase storage
 // capacity (cannot decrease), mount/unmount from instances (Ceph), or trigger
 // state changes for resource management.
-func (r *StorageVolumeService) Update(ctx context.Context, id int64, body StorageVolumeUpdateParams, opts ...option.RequestOption) (res *StorageVolumesResponse, err error) {
+func (r *StorageVolumeService) Update(ctx context.Context, id int64, body StorageVolumeUpdateParams, opts ...option.RequestOption) (res *StorageVolumes, err error) {
+	var env StorageVolumesResponse
 	opts = slices.Concat(r.Options, opts)
 	path := fmt.Sprintf("storage/volumes/%v/", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
+	if err != nil {
+		return
+	}
+	res = &env.Content
 	return
 }
 
