@@ -9,12 +9,12 @@ import (
 	"net/url"
 	"slices"
 
-	"github.com/stainless-sdks/gocloudcix-go/internal/apijson"
-	"github.com/stainless-sdks/gocloudcix-go/internal/apiquery"
-	"github.com/stainless-sdks/gocloudcix-go/internal/requestconfig"
-	"github.com/stainless-sdks/gocloudcix-go/option"
-	"github.com/stainless-sdks/gocloudcix-go/packages/param"
-	"github.com/stainless-sdks/gocloudcix-go/packages/respjson"
+	"github.com/CloudCIX/gocloudcix/internal/apijson"
+	"github.com/CloudCIX/gocloudcix/internal/apiquery"
+	"github.com/CloudCIX/gocloudcix/internal/requestconfig"
+	"github.com/CloudCIX/gocloudcix/option"
+	"github.com/CloudCIX/gocloudcix/packages/param"
+	"github.com/CloudCIX/gocloudcix/packages/respjson"
 )
 
 // ComputeImageService contains methods and other services that help with

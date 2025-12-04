@@ -3,7 +3,7 @@
 package gocloudcix
 
 import (
-	"github.com/stainless-sdks/gocloudcix-go/option"
+	"github.com/CloudCIX/gocloudcix/option"
 )
 
 // StorageService contains methods and other services that help with interacting

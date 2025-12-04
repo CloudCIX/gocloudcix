@@ -1,8 +1,8 @@
 package sentinel_test
 
 import (
-	"github.com/stainless-sdks/gocloudcix-go/internal/encoding/json/sentinel"
-	"github.com/stainless-sdks/gocloudcix-go/packages/param"
+	"github.com/CloudCIX/gocloudcix/internal/encoding/json/sentinel"
+	"github.com/CloudCIX/gocloudcix/packages/param"
 	"reflect"
 	"slices"
 	"testing"

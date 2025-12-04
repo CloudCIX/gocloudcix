@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stainless-sdks/gocloudcix-go/packages/param"
+	"github.com/CloudCIX/gocloudcix/packages/param"
 )
 
 type Struct struct {
