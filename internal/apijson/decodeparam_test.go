@@ -3,8 +3,8 @@ package apijson_test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stainless-sdks/gocloudcix-go/internal/apijson"
-	"github.com/stainless-sdks/gocloudcix-go/packages/param"
+	"github.com/CloudCIX/gocloudcix/internal/apijson"
+	"github.com/CloudCIX/gocloudcix/packages/param"
 	"reflect"
 	"testing"
 )

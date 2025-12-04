@@ -1,7 +1,7 @@
 package sentinel
 
 import (
-	"github.com/stainless-sdks/gocloudcix-go/internal/encoding/json/shims"
+	"github.com/CloudCIX/gocloudcix/internal/encoding/json/shims"
 	"reflect"
 	"sync"
 )

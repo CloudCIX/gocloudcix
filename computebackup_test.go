@@ -8,9 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stainless-sdks/gocloudcix-go"
-	"github.com/stainless-sdks/gocloudcix-go/internal/testutil"
-	"github.com/stainless-sdks/gocloudcix-go/option"
+	"github.com/CloudCIX/gocloudcix"
+	"github.com/CloudCIX/gocloudcix/internal/testutil"
+	"github.com/CloudCIX/gocloudcix/option"
 )
 
 func TestComputeBackupNewWithOptionalParams(t *testing.T) {
