@@ -4,10 +4,13 @@ package gocloudcix
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"os"
 	"slices"
 
+	"github.com/CloudCIX/gocloudcix/auth"
+	"github.com/CloudCIX/gocloudcix/config"
 	"github.com/CloudCIX/gocloudcix/internal/requestconfig"
 	"github.com/CloudCIX/gocloudcix/option"
 )
@@ -16,11 +19,13 @@ import (
 // interacting with the gocloudcix API. You should not instantiate this client
 // directly, and instead use the [NewClient] method instead.
 type Client struct {
-	Options []option.RequestOption
-	Compute ComputeService
-	Network NetworkService
-	Project ProjectService
-	Storage StorageService
+	Options      []option.RequestOption
+	Compute      ComputeService
+	Network      NetworkService
+	Project      ProjectService
+	Storage      StorageService
+	tokenManager *auth.TokenManager
+	settings     *config.Settings
 }
 
 // DefaultClientOptions read from the environment (GOCLOUDCIX_API_KEY,
@@ -51,6 +56,81 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.Storage = NewStorageService(opts...)
 
 	return
+}
+
+// NewClientWithAuth creates a client with automatic authentication from environment variables.
+// Returns an error if credentials are not configured.
+func NewClientWithAuth(opts ...option.RequestOption) (*Client, error) {
+	settings, err := config.LoadSettings()
+	if err != nil {
+		return nil, fmt.Errorf("failed to load settings: %w", err)
+	}
+
+	if err := settings.Validate(); err != nil {
+		return nil, fmt.Errorf("authentication credentials not configured: %w", err)
+	}
+
+	client := NewClientWithSettings(settings, opts...)
+	return &client, nil
+}
+
+// NewClientFromFile creates a client loading credentials from a settings file.
+func NewClientFromFile(settingsFile string, opts ...option.RequestOption) (*Client, error) {
+	settings, err := config.LoadSettings(settingsFile)
+	if err != nil {
+		return nil, fmt.Errorf("failed to load settings from file: %w", err)
+	}
+
+	if err := settings.Validate(); err != nil {
+		return nil, fmt.Errorf("invalid settings: %w", err)
+	}
+
+	client := NewClientWithSettings(settings, opts...)
+	return &client, nil
+}
+
+// NewClientWithSettings creates a client with the provided settings and automatic authentication.
+func NewClientWithSettings(settings *config.Settings, opts ...option.RequestOption) Client {
+	tokenManager := auth.NewTokenManager(settings)
+
+	// Add authentication middleware
+	authOpts := []option.RequestOption{
+		option.WithBaseURL(settings.ComputeURL()),
+		option.WithMiddleware(auth.AuthRetryMiddleware(tokenManager)),
+		auth.WithAutoAuth(tokenManager),
+	}
+
+	opts = append(authOpts, opts...)
+	opts = append(DefaultClientOptions(), opts...)
+
+	client := Client{
+		Options:      opts,
+		tokenManager: tokenManager,
+		settings:     settings,
+	}
+
+	client.Compute = NewComputeService(opts...)
+	client.Network = NewNetworkService(opts...)
+	client.Project = NewProjectService(opts...)
+	client.Storage = NewStorageService(opts...)
+
+	return client
+}
+
+// RefreshToken manually refreshes the authentication token
+func (r *Client) RefreshToken(ctx context.Context) error {
+	if r.tokenManager == nil {
+		return fmt.Errorf("client not configured with authentication")
+	}
+
+	r.tokenManager.InvalidateToken()
+	_, err := r.tokenManager.GetValidToken(ctx)
+	return err
+}
+
+// GetSettings returns the client's settings if configured with authentication
+func (r *Client) GetSettings() *config.Settings {
+	return r.settings
 }
 
 // Execute makes a request with the given context, method, URL, request params,
