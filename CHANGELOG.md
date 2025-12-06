@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.1 (2025-12-06)
+
+Full Changelog: [v0.2.0...v0.2.1](https://github.com/CloudCIX/gocloudcix/compare/v0.2.0...v0.2.1)
+
+### Bug Fixes
+
+* **mcp:** correct code tool API endpoint ([d67d795](https://github.com/CloudCIX/gocloudcix/commit/d67d7958725f995bd533a6905a987a3f29f55cfa))
+* rename param to avoid collision ([ef1a84b](https://github.com/CloudCIX/gocloudcix/commit/ef1a84ba78d7d03d62c2a45e7a3b3242c5186a8e))
+
+
+### Chores
+
+* elide duplicate aliases ([170142d](https://github.com/CloudCIX/gocloudcix/commit/170142de251d5bdfd708921f01572acffe17dff9))
+* **internal:** codegen related update ([c4a6413](https://github.com/CloudCIX/gocloudcix/commit/c4a64136a9c7dfc1b8b983b273d459f7059841a2))
+
 ## 0.2.0 (2025-12-04)
 
 Full Changelog: [v0.1.1...v0.2.0](https://github.com/CloudCIX/gocloudcix/compare/v0.1.1...v0.2.0)
