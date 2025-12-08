@@ -513,8 +513,12 @@ func (r *NetworkRouterNewParamsMetadata) UnmarshalJSON(data []byte) error {
 type NetworkRouterNewParamsNetwork struct {
 	// The IPv4 address range of the network
 	Ipv4 param.Opt[string] `json:"ipv4,omitzero"`
+	// The IPv6 address range of the network
+	Ipv6 param.Opt[string] `json:"ipv6,omitzero"`
 	// The name of the network
 	Name param.Opt[string] `json:"name,omitzero"`
+	// The VLAN of the network
+	Vlan param.Opt[int64] `json:"vlan,omitzero"`
 	paramObj
 }
 

@@ -36,13 +36,19 @@ func TestNetworkRouterNewWithOptionalParams(t *testing.T) {
 		Name: gocloudcix.String("Public Website Router"),
 		Networks: []gocloudcix.NetworkRouterNewParamsNetwork{{
 			Ipv4: gocloudcix.String("10.0.1.0/24"),
+			Ipv6: gocloudcix.String("ipv6"),
 			Name: gocloudcix.String("web-tier"),
+			Vlan: gocloudcix.Int(0),
 		}, {
 			Ipv4: gocloudcix.String("10.0.2.0/24"),
+			Ipv6: gocloudcix.String("ipv6"),
 			Name: gocloudcix.String("app-tier"),
+			Vlan: gocloudcix.Int(0),
 		}, {
 			Ipv4: gocloudcix.String("10.0.3.0/24"),
+			Ipv6: gocloudcix.String("ipv6"),
 			Name: gocloudcix.String("db-tier"),
+			Vlan: gocloudcix.Int(0),
 		}},
 		Type: gocloudcix.String("router"),
 	})
