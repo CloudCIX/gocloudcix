@@ -125,6 +125,15 @@ func (r *StorageVolumeService) List(ctx context.Context, query StorageVolumeList
 	return
 }
 
+// This method allows the User to delete a specified Storage Volume.
+func (r *StorageVolumeService) Delete(ctx context.Context, id int64, opts ...option.RequestOption) (err error) {
+	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
+	path := fmt.Sprintf("storage/volumes/%v/", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
+	return
+}
+
 type StorageVolumes struct {
 	// The ID of the Storage Volume record
 	ID int64 `json:"id,required"`

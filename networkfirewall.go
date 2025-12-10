@@ -126,6 +126,17 @@ func (r *NetworkFirewallService) List(ctx context.Context, query NetworkFirewall
 	return
 }
 
+// This method allows the User to delete a Network Firewall immediately. The grace
+// period will be set to 0 which will facilitate the virtual infrastructure for the
+// Network Firewall to be scrubbed from the region without the option to restore.
+func (r *NetworkFirewallService) Delete(ctx context.Context, id int64, opts ...option.RequestOption) (err error) {
+	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
+	path := fmt.Sprintf("network/firewalls/%v/", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
+	return
+}
+
 type NetworkFirewall struct {
 	// The ID of the Network Firewall record
 	ID int64 `json:"id,required"`

@@ -109,6 +109,17 @@ func (r *ComputeGPUService) List(ctx context.Context, query ComputeGPUListParams
 	return
 }
 
+// This method allows the User to delete a specified Compute GPU. Requesting to
+// delete a GPU will result in the GPU being detached from the LXD Compute Instance
+// it is attached to.
+func (r *ComputeGPUService) Delete(ctx context.Context, id int64, opts ...option.RequestOption) (err error) {
+	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
+	path := fmt.Sprintf("compute/gpus/%v/", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
+	return
+}
+
 // Attach a GPU hardware accelerator to a running LXD instance. Specify the target
 // LXD instance ID, project, and GPU specifications (SKUs) to provision and attach
 // the GPU resource.
