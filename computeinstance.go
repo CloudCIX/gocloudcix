@@ -127,6 +127,17 @@ func (r *ComputeInstanceService) List(ctx context.Context, query ComputeInstance
 	return
 }
 
+// This method allows the User to delete a Compute Instance immediately. The grace
+// period will be set to 0 which will facilitate the virtual infrastructure for the
+// Compute Instance to be scrubbed from the region without the option to restore.
+func (r *ComputeInstanceService) Delete(ctx context.Context, id int64, opts ...option.RequestOption) (err error) {
+	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
+	path := fmt.Sprintf("compute/instances/%v/", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
+	return
+}
+
 type Bom struct {
 	// How many units of a billable entity that a Resource utilises
 	Quantity int64 `json:"quantity,required"`

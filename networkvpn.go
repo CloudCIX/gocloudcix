@@ -119,6 +119,15 @@ func (r *NetworkVpnService) List(ctx context.Context, query NetworkVpnListParams
 	return
 }
 
+// This method allows the User to delete a specified Network VPN.
+func (r *NetworkVpnService) Delete(ctx context.Context, id int64, opts ...option.RequestOption) (err error) {
+	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
+	path := fmt.Sprintf("network/vpns/%v/", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
+	return
+}
+
 type NetworkVpn struct {
 	// The ID of the Network VPN record
 	ID int64 `json:"id,required"`

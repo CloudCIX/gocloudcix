@@ -136,6 +136,17 @@ func (r *NetworkRouterService) List(ctx context.Context, query NetworkRouterList
 	return
 }
 
+// This method allows the User to delete a Network Router immediately. The grace
+// period will be set to 0 which will facilitate the virtual infrastructure for the
+// Network Router to be scrubbed from the region without the option to restore.
+func (r *NetworkRouterService) Delete(ctx context.Context, id int64, opts ...option.RequestOption) (err error) {
+	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
+	path := fmt.Sprintf("network/routers/%v/", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
+	return
+}
+
 type BaseIPAddress struct {
 	// The ID of the IPAddress record.
 	ID int64 `json:"id,required"`
