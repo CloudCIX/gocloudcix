@@ -126,6 +126,15 @@ func (r *ComputeBackupService) List(ctx context.Context, query ComputeBackupList
 	return
 }
 
+// This method allows the User to delete a specified Compute Backup.
+func (r *ComputeBackupService) Delete(ctx context.Context, id int64, opts ...option.RequestOption) (err error) {
+	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
+	path := fmt.Sprintf("compute/backups/%v/", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
+	return
+}
+
 type ComputeBackup struct {
 	// The ID of the Compute Backups record
 	ID int64 `json:"id,required"`
