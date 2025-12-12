@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.0 (2025-12-12)
+
+Full Changelog: [v0.4.0...v0.5.0](https://github.com/CloudCIX/gocloudcix/compare/v0.4.0...v0.5.0)
+
+### Features
+
+* **encoder:** support bracket encoding form-data object members ([59db02b](https://github.com/CloudCIX/gocloudcix/commit/59db02b404635149e2ce7c8b66c56f7821857ce7))
+
 ## 0.4.0 (2025-12-10)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/CloudCIX/gocloudcix/compare/v0.3.0...v0.4.0)
