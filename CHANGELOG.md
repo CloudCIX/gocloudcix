@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.5.0 (2025-12-19)
+
+Full Changelog: [v0.4.0...v0.5.0](https://github.com/CloudCIX/gocloudcix/compare/v0.4.0...v0.5.0)
+
+### Features
+
+* **encoder:** support bracket encoding form-data object members ([59db02b](https://github.com/CloudCIX/gocloudcix/commit/59db02b404635149e2ce7c8b66c56f7821857ce7))
+
+
+### Bug Fixes
+
+* skip usage tests that don't work with Prism ([37926c8](https://github.com/CloudCIX/gocloudcix/commit/37926c863f95232b3a03e2f109e728a378f3b927))
+
+
+### Chores
+
+* add float64 to valid types for RegisterFieldValidator ([ded3d6b](https://github.com/CloudCIX/gocloudcix/commit/ded3d6b44b3e00ff6492731405a8fa600d9de47b))
+
 ## 0.4.0 (2025-12-10)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/CloudCIX/gocloudcix/compare/v0.3.0...v0.4.0)
