@@ -10,7 +10,6 @@ import (
 )
 
 // GetToken attempts to generate a CloudCIX token for the given credentials
-// If apiURL is empty, it defaults to "https://api.cloudcix.com/"
 func GetToken(email, password, apiKey string, opts ...option.RequestOption) (string, error) {
 	return GetTokenWithURL(email, password, apiKey, "", opts...)
 }
