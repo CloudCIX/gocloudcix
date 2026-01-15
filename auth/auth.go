@@ -11,8 +11,18 @@ import (
 
 // GetToken attempts to generate a CloudCIX token for the given credentials
 func GetToken(email, password, apiKey string, opts ...option.RequestOption) (string, error) {
+	return GetTokenWithURL(email, password, apiKey, "", opts...)
+}
+
+// GetTokenWithURL attempts to generate a CloudCIX token for the given credentials with a custom API URL
+// If apiURL is empty, it defaults to "https://api.cloudcix.com/"
+func GetTokenWithURL(email, password, apiKey, apiURL string, opts ...option.RequestOption) (string, error) {
+	if apiURL == "" {
+		apiURL = "https://api.cloudcix.com/"
+	}
+
 	settings := &config.Settings{
-		CLOUDCIX_API_V2_URL:   "https://api.cloudcix.com/",
+		CLOUDCIX_API_V2_URL:   apiURL,
 		CLOUDCIX_API_USERNAME: email,
 		CLOUDCIX_API_PASSWORD: password,
 		CLOUDCIX_API_KEY:      apiKey,

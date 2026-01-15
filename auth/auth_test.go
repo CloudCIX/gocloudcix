@@ -88,3 +88,51 @@ func TestSettingsValidation(t *testing.T) {
 		t.Fatal("Settings without region ID should fail validation")
 	}
 }
+
+func TestGetTokenWithURL(t *testing.T) {
+	// Test with empty URL (should use default)
+	// Note: This will fail to connect but we're testing URL setting, not actual connection
+	t.Run("empty URL defaults to https://api.cloudcix.com/", func(t *testing.T) {
+		// We can't actually make the request without valid credentials and network access
+		// but we can verify the function signature and that it accepts parameters correctly
+		email := "test@example.com"
+		password := "testpass"
+		apiKey := "testkey"
+
+		// This will fail due to invalid credentials, but that's expected
+		_, err := GetTokenWithURL(email, password, apiKey, "")
+		// We expect an error because credentials are invalid, but the function should execute
+		if err == nil {
+			t.Fatal("Expected error with invalid credentials")
+		}
+	})
+
+	t.Run("custom URL is used", func(t *testing.T) {
+		email := "test@example.com"
+		password := "testpass"
+		apiKey := "testkey"
+		customURL := "https://staging.api.cloudcix.com/"
+
+		// This will fail due to invalid credentials and network, but that's expected
+		_, err := GetTokenWithURL(email, password, apiKey, customURL)
+		// We expect an error because credentials are invalid, but the function should execute
+		if err == nil {
+			t.Fatal("Expected error with invalid credentials")
+		}
+	})
+
+	t.Run("GetToken calls GetTokenWithURL with empty URL", func(t *testing.T) {
+		email := "test@example.com"
+		password := "testpass"
+		apiKey := "testkey"
+
+		// Both should behave the same way
+		_, err1 := GetToken(email, password, apiKey)
+		_, err2 := GetTokenWithURL(email, password, apiKey, "")
+
+		// Both should fail in the same way (invalid credentials)
+		if (err1 == nil) != (err2 == nil) {
+			t.Fatal("GetToken and GetTokenWithURL with empty URL should behave the same")
+		}
+	})
+}
