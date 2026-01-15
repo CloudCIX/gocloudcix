@@ -30,7 +30,7 @@ func GetTokenWithURL(email, password, apiKey, apiURL string, opts ...option.Requ
 
 	// Only override API URL if explicitly provided
 	if apiURL != "" {
-		settings.CLOUDCIX_API_V2_URL = apiURL
+		settings.CLOUDCIX_API_URL = apiURL
 	}
 
 	tokenManager := NewTokenManager(settings)
