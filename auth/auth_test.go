@@ -9,7 +9,6 @@ import (
 func TestTokenManager(t *testing.T) {
 	settings := &config.Settings{
 		CLOUDCIX_API_URL:      "https://compute.api.cloudcix.com/",
-		CLOUDCIX_API_V2_URL:   "https://membership.api.cloudcix.com/",
 		CLOUDCIX_API_VERSION:  "5.0",
 		CLOUDCIX_API_USERNAME: "test@example.com",
 		CLOUDCIX_API_PASSWORD: "testpass",
