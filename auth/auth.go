@@ -15,17 +15,22 @@ func GetToken(email, password, apiKey string, opts ...option.RequestOption) (str
 }
 
 // GetTokenWithURL attempts to generate a CloudCIX token for the given credentials with a custom API URL
-// If apiURL is empty, it defaults to "https://api.cloudcix.com/"
+// If apiURL is empty, it uses the default configuration from environment variables or defaults
 func GetTokenWithURL(email, password, apiKey, apiURL string, opts ...option.RequestOption) (string, error) {
-	if apiURL == "" {
-		apiURL = "https://api.cloudcix.com/"
+	// Load default settings first to respect environment variables
+	settings, err := config.LoadSettings()
+	if err != nil {
+		return "", fmt.Errorf("failed to load default settings: %w", err)
 	}
 
-	settings := &config.Settings{
-		CLOUDCIX_API_V2_URL:   apiURL,
-		CLOUDCIX_API_USERNAME: email,
-		CLOUDCIX_API_PASSWORD: password,
-		CLOUDCIX_API_KEY:      apiKey,
+	// Override with provided values
+	settings.CLOUDCIX_API_USERNAME = email
+	settings.CLOUDCIX_API_PASSWORD = password
+	settings.CLOUDCIX_API_KEY = apiKey
+
+	// Only override API URL if explicitly provided
+	if apiURL != "" {
+		settings.CLOUDCIX_API_URL = apiURL
 	}
 
 	tokenManager := NewTokenManager(settings)
