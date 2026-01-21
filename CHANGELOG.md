@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.5.3 (2026-01-17)
+
+Full Changelog: [v0.5.2...v0.5.3](https://github.com/CloudCIX/gocloudcix/compare/v0.5.2...v0.5.3)
+
+### Bug Fixes
+
+* **docs:** add missing pointer prefix to api.md return types ([cd8f4c9](https://github.com/CloudCIX/gocloudcix/commit/cd8f4c9118117f414df6e5141487a43cf8be3f77))
+
+
+### Chores
+
+* **internal:** update `actions/checkout` version ([d6da822](https://github.com/CloudCIX/gocloudcix/commit/d6da822700176005336f4c1b7e053b8154692cc5))
+
 ## 0.5.2 (2026-01-15)
 
 Full Changelog: [v0.5.1...v0.5.2](https://github.com/CloudCIX/gocloudcix/compare/v0.5.1...v0.5.2)
