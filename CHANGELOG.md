@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.0 (2026-01-24)
+
+Full Changelog: [v0.5.3...v0.6.0](https://github.com/CloudCIX/gocloudcix/compare/v0.5.3...v0.6.0)
+
+### Features
+
+* **client:** add a convenient param.SetJSON helper ([c224e7a](https://github.com/CloudCIX/gocloudcix/commit/c224e7abc723c9f4bdee203fd604ea5a49d7f0e0))
+
 ## 0.5.3 (2026-01-17)
 
 Full Changelog: [v0.5.2...v0.5.3](https://github.com/CloudCIX/gocloudcix/compare/v0.5.2...v0.5.3)
