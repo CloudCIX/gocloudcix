@@ -149,22 +149,22 @@ func (r *NetworkRouterService) Delete(ctx context.Context, id int64, opts ...opt
 
 type BaseIPAddress struct {
 	// The ID of the IPAddress record.
-	ID int64 `json:"id,required"`
+	ID int64 `json:"id" api:"required"`
 	// The IP address of the IPAddress record.
-	Address string `json:"address,required"`
+	Address string `json:"address" api:"required"`
 	// Timestamp, in ISO format, of when the IPAddress record was created.
-	Created string `json:"created,required"`
+	Created string `json:"created" api:"required"`
 	// A verbose name given to the IPAddress record.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// The note attached to IPAddress that made it.
-	Notes    string                `json:"notes,required"`
-	PublicIP BaseIPAddressPublicIP `json:"public_ip,required"`
+	Notes    string                `json:"notes" api:"required"`
+	PublicIP BaseIPAddressPublicIP `json:"public_ip" api:"required"`
 	// The ID of the Public IPAddress record.
-	PublicIPID int64 `json:"public_ip_id,required"`
+	PublicIPID int64 `json:"public_ip_id" api:"required"`
 	// The ID of the Subnet record.
-	SubnetID int64 `json:"subnet_id,required"`
+	SubnetID int64 `json:"subnet_id" api:"required"`
 	// Timestamp, in ISO format, of when the IPAddress record was last updated.
-	Updated string `json:"updated,required"`
+	Updated string `json:"updated" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -189,9 +189,9 @@ func (r *BaseIPAddress) UnmarshalJSON(data []byte) error {
 
 type BaseIPAddressPublicIP struct {
 	// The ID of the Public IPAddress record.
-	ID int64 `json:"id,required"`
+	ID int64 `json:"id" api:"required"`
 	// The actual address of the Public IPAddress record.
-	Address string `json:"address,required"`
+	Address string `json:"address" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -209,30 +209,30 @@ func (r *BaseIPAddressPublicIP) UnmarshalJSON(data []byte) error {
 
 type NetworkRouter struct {
 	// The ID of the Router Resource record
-	ID int64 `json:"id,required"`
+	ID int64 `json:"id" api:"required"`
 	// Timestamp, in ISO format, of when the Router Resource record was created.
-	Created string `json:"created,required"`
+	Created string `json:"created" api:"required"`
 	// Number of days after a user sets the state of the Router to Scrub (8) before it
 	// is executed by robot. The default value is 7 days for a Router.
-	GracePeriod int64                 `json:"grace_period,required"`
-	Metadata    NetworkRouterMetadata `json:"metadata,required"`
+	GracePeriod int64                 `json:"grace_period" api:"required"`
+	Metadata    NetworkRouterMetadata `json:"metadata" api:"required"`
 	// The user-friendly name given to this Router Resource instance
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// An array of the list of networks defined on the Router
-	Networks []NetworkRouterNetwork `json:"networks,required"`
+	Networks []NetworkRouterNetwork `json:"networks" api:"required"`
 	// The id of the Project that this Router Resource belongs to
-	ProjectID int64 `json:"project_id,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
 	// An array of the specs for the Router Resource
-	Specs []Bom `json:"specs,required"`
+	Specs []Bom `json:"specs" api:"required"`
 	// The current state of the Router Resource
-	State string `json:"state,required"`
+	State string `json:"state" api:"required"`
 	// The type of the Network Router
-	Type string `json:"type,required"`
+	Type string `json:"type" api:"required"`
 	// Timestamp, in ISO format, of when the Router Resource record was last updated.
-	Updated string `json:"updated,required"`
+	Updated string `json:"updated" api:"required"`
 	// URL that can be used to run methods in the API associated with the Network
 	// Routers instance.
-	Uri string `json:"uri,required" format:"url"`
+	Uri string `json:"uri" api:"required" format:"url"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -259,12 +259,12 @@ func (r *NetworkRouter) UnmarshalJSON(data []byte) error {
 }
 
 type NetworkRouterMetadata struct {
-	Ipv4Address BaseIPAddress `json:"ipv4_address,required"`
+	Ipv4Address BaseIPAddress `json:"ipv4_address" api:"required"`
 	// The ID of the assigned public IPv4 address for the Router.
-	Ipv4AddressID int64         `json:"ipv4_address_id,required"`
-	Ipv6Address   BaseIPAddress `json:"ipv6_address,required"`
+	Ipv4AddressID int64         `json:"ipv4_address_id" api:"required"`
+	Ipv6Address   BaseIPAddress `json:"ipv6_address" api:"required"`
 	// The ID of the assigned public IPv6 address for the Router.
-	Ipv6AddressID int64 `json:"ipv6_address_id,required"`
+	Ipv6AddressID int64 `json:"ipv6_address_id" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Ipv4Address   respjson.Field
@@ -356,7 +356,7 @@ type NetworkRouterUpdateParam struct {
 	//
 	// Note: To delete a router, all other resources in the project must first be in
 	// one of these states: delete, delete_queue, or deleting.
-	State string `json:"state,required"`
+	State string `json:"state" api:"required"`
 	// The user-friendly name for the Network Router. If not sent, it will default to
 	// current name.
 	Name param.Opt[string] `json:"name,omitzero"`
@@ -453,7 +453,7 @@ func (r *NetworkRouterListResponse) UnmarshalJSON(data []byte) error {
 
 type NetworkRouterNewParams struct {
 	// The ID of the User's Project into which this Network Router should be added.
-	ProjectID int64 `json:"project_id,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
 	// The user-friendly name for the Network Router. If not sent and the type is
 	// "router", it will default to the name 'Router'. If not sent and the type is
 	// "static_route", it will default to the name 'Static Route'.

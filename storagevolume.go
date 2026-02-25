@@ -136,30 +136,30 @@ func (r *StorageVolumeService) Delete(ctx context.Context, id int64, opts ...opt
 
 type StorageVolumes struct {
 	// The ID of the Storage Volume record
-	ID int64 `json:"id,required"`
+	ID int64 `json:"id" api:"required"`
 	// A list of Compute Instances the Storage Volume is mounted to.
-	ContraInstances []StorageVolumesContraInstance `json:"contra_instances,required"`
+	ContraInstances []StorageVolumesContraInstance `json:"contra_instances" api:"required"`
 	// Timestamp, in ISO format, of when the Storage Volume was created.
-	Created string `json:"created,required"`
+	Created string `json:"created" api:"required"`
 	// The "hyperv" Compute Instance the "hyperv" Storage Volume is attached to.
-	Instance StorageVolumesInstance `json:"instance,required"`
+	Instance StorageVolumesInstance `json:"instance" api:"required"`
 	// The metadata object of "ceph" Storage Volumes
-	Metadata StorageVolumesMetadata `json:"metadata,required"`
+	Metadata StorageVolumesMetadata `json:"metadata" api:"required"`
 	// The user-friendly name given to this Storage Volume
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// The ID of the Project that this Storage Volume belongs to
-	ProjectID int64 `json:"project_id,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
 	// An array of the specs for the Storage Volume
-	Specs []Bom `json:"specs,required"`
+	Specs []Bom `json:"specs" api:"required"`
 	// The current state of the Storage Volume
-	State string `json:"state,required"`
+	State string `json:"state" api:"required"`
 	// The type of the Storage Volume
-	Type string `json:"type,required"`
+	Type string `json:"type" api:"required"`
 	// Timestamp, in ISO format, of when the Storage Volume was last updated.
-	Updated string `json:"updated,required"`
+	Updated string `json:"updated" api:"required"`
 	// URL that can be used to run methods in the API associated with the Storage
 	// Volumes instance.
-	Uri string `json:"uri,required" format:"url"`
+	Uri string `json:"uri" api:"required" format:"url"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID              respjson.Field
@@ -376,9 +376,9 @@ func (r *StorageVolumeListResponse) UnmarshalJSON(data []byte) error {
 
 type StorageVolumeNewParams struct {
 	// The ID of the Project which this Storage Volume should be in.
-	ProjectID int64 `json:"project_id,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
 	// List of specs (SKUs) for the Storage Volume drive.
-	Specs []StorageVolumeNewParamsSpec `json:"specs,omitzero,required"`
+	Specs []StorageVolumeNewParamsSpec `json:"specs,omitzero" api:"required"`
 	// Required if type is "hyperv".
 	//
 	// The ID of a Compute Instance with the type "hyperv" the Storage Volume is to be

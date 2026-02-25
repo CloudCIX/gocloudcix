@@ -87,13 +87,13 @@ func (r *ComputeImageService) List(ctx context.Context, query ComputeImageListPa
 
 type ComputeImage struct {
 	// The ID of the Image.
-	ID int64 `json:"id,required"`
+	ID int64 `json:"id" api:"required"`
 	// The name of the file containing the Image.
-	Filename string `json:"filename,required"`
+	Filename string `json:"filename" api:"required"`
 	// Is a unique word to define each Image.
-	OsVariant string `json:"os_variant,required"`
+	OsVariant string `json:"os_variant" api:"required"`
 	// The name of the Image.
-	SKUName string `json:"sku_name,required"`
+	SKUName string `json:"sku_name" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
