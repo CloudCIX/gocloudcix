@@ -140,9 +140,9 @@ func (r *ComputeInstanceService) Delete(ctx context.Context, id int64, opts ...o
 
 type Bom struct {
 	// How many units of a billable entity that a Resource utilises
-	Quantity int64 `json:"quantity,required"`
+	Quantity int64 `json:"quantity" api:"required"`
 	// An identifier for a billable entity that a Resource utilises
-	SKUName string `json:"sku_name,required"`
+	SKUName string `json:"sku_name" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Quantity    respjson.Field
@@ -160,30 +160,30 @@ func (r *Bom) UnmarshalJSON(data []byte) error {
 
 type ComputeInstance struct {
 	// The ID of the Compute Instance record
-	ID int64 `json:"id,required"`
+	ID int64 `json:"id" api:"required"`
 	// Timestamp, in ISO format, of when the Compute Instance record was created.
-	Created string `json:"created,required"`
+	Created string `json:"created" api:"required"`
 	// Number of days after a user sets the state of the Compute Instance Resource to
 	// Scrub (8) before it is executed by robot.
-	GracePeriod int64 `json:"grace_period,required"`
+	GracePeriod int64 `json:"grace_period" api:"required"`
 	// Array of the interfaces for the Compute Instance
-	Interfaces []ComputeInstanceInterface `json:"interfaces,required"`
+	Interfaces []ComputeInstanceInterface `json:"interfaces" api:"required"`
 	// The metadata details of the Compute Instance
-	Metadata ComputeInstanceMetadata `json:"metadata,required"`
+	Metadata ComputeInstanceMetadata `json:"metadata" api:"required"`
 	// The human-friendly name given to this Compute Instance
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// The id of the Project that this Compute Instance belongs to
-	ProjectID int64 `json:"project_id,required"`
-	Specs     Bom   `json:"specs,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
+	Specs     Bom   `json:"specs" api:"required"`
 	// The current state of the Compute Instance
-	State string `json:"state,required"`
+	State string `json:"state" api:"required"`
 	// The type of the Compute Instance
-	Type string `json:"type,required"`
+	Type string `json:"type" api:"required"`
 	// Timestamp, in ISO format, of when the Compute Instance record was last updated.
-	Updated string `json:"updated,required"`
+	Updated string `json:"updated" api:"required"`
 	// URL that can be used to run methods in the API associated with the Compute
 	// Instance.
-	Uri string `json:"uri,required" format:"url"`
+	Uri string `json:"uri" api:"required" format:"url"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -332,9 +332,9 @@ func (r *ComputeInstanceResponse) UnmarshalJSON(data []byte) error {
 // The properties Metadata, Specs are required.
 type ComputeInstanceUpdateParam struct {
 	// Optional. The metadata required to configure in an Compute Instance.
-	Metadata ComputeInstanceUpdateMetadataParam `json:"metadata,omitzero,required"`
+	Metadata ComputeInstanceUpdateMetadataParam `json:"metadata,omitzero" api:"required"`
 	// List of specs (SKUs) for the Compute Instance resource.
-	Specs []ComputeInstanceUpdateSpecParam `json:"specs,omitzero,required"`
+	Specs []ComputeInstanceUpdateSpecParam `json:"specs,omitzero" api:"required"`
 	// The number of days after a Compute Intsance is closed before it is permanently
 	// deleted.
 	GracePeriod param.Opt[int64] `json:"grace_period,omitzero"`
@@ -510,11 +510,11 @@ func (r *ComputeInstanceListResponse) UnmarshalJSON(data []byte) error {
 
 type ComputeInstanceNewParams struct {
 	// Optional. The metadata required to configure in an Compute Instance.
-	Metadata ComputeInstanceNewParamsMetadata `json:"metadata,omitzero,required"`
+	Metadata ComputeInstanceNewParamsMetadata `json:"metadata,omitzero" api:"required"`
 	// The ID of the Project which this Compute Intsance Resource should be in.
-	ProjectID int64 `json:"project_id,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
 	// List of specs (SKUs) for the Compute Instance resource.
-	Specs []ComputeInstanceNewParamsSpec `json:"specs,omitzero,required"`
+	Specs []ComputeInstanceNewParamsSpec `json:"specs,omitzero" api:"required"`
 	// The number of days after a Compute Intsance is closed before it is permanently
 	// deleted.
 	GracePeriod param.Opt[int64] `json:"grace_period,omitzero"`

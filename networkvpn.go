@@ -130,27 +130,27 @@ func (r *NetworkVpnService) Delete(ctx context.Context, id int64, opts ...option
 
 type NetworkVpn struct {
 	// The ID of the Network VPN record
-	ID int64 `json:"id,required"`
+	ID int64 `json:"id" api:"required"`
 	// Timestamp, in ISO format, of when the Network VPN record was created.
-	Created string `json:"created,required"`
+	Created string `json:"created" api:"required"`
 	// The metadata for the configuration of the IKE and IPSec phases of the Network
 	// VPN.
-	Metadata NetworkVpnMetadata `json:"metadata,required"`
+	Metadata NetworkVpnMetadata `json:"metadata" api:"required"`
 	// The user-friendly name given to this Network VPN instance
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// The id of the Project that this Network VPN belongs to
-	ProjectID int64 `json:"project_id,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
 	// An array of the specs for the Network VPN
-	Specs []Bom `json:"specs,required"`
+	Specs []Bom `json:"specs" api:"required"`
 	// The current state of the Network VPN
-	State string `json:"state,required"`
+	State string `json:"state" api:"required"`
 	// The type of the Network VPN
-	Type string `json:"type,required"`
+	Type string `json:"type" api:"required"`
 	// Timestamp, in ISO format, of when the Network VPN record was last updated.
-	Updated string `json:"updated,required"`
+	Updated string `json:"updated" api:"required"`
 	// URL that can be used to run methods in the API associated with the Network VPN
 	// instance.
-	Uri string `json:"uri,required" format:"url"`
+	Uri string `json:"uri" api:"required" format:"url"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -519,7 +519,7 @@ func (r *NetworkVpnListResponse) UnmarshalJSON(data []byte) error {
 
 type NetworkVpnNewParams struct {
 	// The ID of the User's Project into which this Network VPN should be added.
-	ProjectID int64 `json:"project_id,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
 	// The user-friendly name for the Network VPN. If not sent, it will default to the
 	// name 'VPNS2S'
 	Name param.Opt[string] `json:"name,omitzero"`

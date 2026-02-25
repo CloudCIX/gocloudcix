@@ -130,22 +130,22 @@ func (r *NetworkIPGroupService) Delete(ctx context.Context, id int64, opts ...op
 
 type NetworkIPGroup struct {
 	// The ID of the Network IP Goup record
-	ID int64 `json:"id,required"`
+	ID int64 `json:"id" api:"required"`
 	// An array of CIDR addresses in the Network IP Group.
-	Cidrs []string `json:"cidrs,required"`
+	Cidrs []string `json:"cidrs" api:"required"`
 	// Timestamp, in ISO format, of when the Network IP Group was created.
-	Created string `json:"created,required"`
+	Created string `json:"created" api:"required"`
 	// The name of the Network IP Group.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// The type of the Network IP Group
-	Type string `json:"type,required"`
+	Type string `json:"type" api:"required"`
 	// Timestamp, in ISO format, of when the Network IP Group was last updated.
-	Updated string `json:"updated,required"`
+	Updated string `json:"updated" api:"required"`
 	// The absolute URL of the Network IP Group record that can be used to perform
 	// `Read`, `Update` and `Delete`
-	Uri string `json:"uri,required"`
+	Uri string `json:"uri" api:"required"`
 	// The IP Version of the CIDRs in the group.
-	Version int64 `json:"version,required"`
+	Version int64 `json:"version" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -189,11 +189,11 @@ type NetworkIPGroupUpdateParam struct {
 	// addresses (e.g., "91.103.3.36") or network ranges (e.g., "90.103.2.0/24"). All
 	// addresses must match the specified IP version. Use these groups in firewall
 	// rules to allow/block traffic from multiple locations with a single rule.
-	Cidrs []string `json:"cidrs,omitzero,required"`
+	Cidrs []string `json:"cidrs,omitzero" api:"required"`
 	// The name to be given to the new IP Address Group. Used to identify the group
 	// when creating firewall rules or geo-filters. Must start with a letter and
 	// contain only letters, numbers, underscores, and hyphens.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// The IP version of the IP Address Group Objects in the IP Address Group. Accepted
 	// versions are 4 and 6. If not sent, it will default to 4.
 	Version param.Opt[int64] `json:"version,omitzero"`
@@ -240,11 +240,11 @@ type NetworkIPGroupNewParams struct {
 	// addresses (e.g., "91.103.3.36") or network ranges (e.g., "90.103.2.0/24"). All
 	// addresses must match the specified IP version. Use these groups in firewall
 	// rules to allow/block traffic from multiple locations with a single rule.
-	Cidrs []string `json:"cidrs,omitzero,required"`
+	Cidrs []string `json:"cidrs,omitzero" api:"required"`
 	// The name to be given to the new IP Address Group. Used to identify the group
 	// when creating firewall rules or geo-filters. Must start with a letter and
 	// contain only letters, numbers, underscores, and hyphens.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// The IP version of the IP Address Group Objects in the IP Address Group. Accepted
 	// versions are 4 and 6. If not sent, it will default to 4.
 	Version param.Opt[int64] `json:"version,omitzero"`

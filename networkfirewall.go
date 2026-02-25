@@ -139,26 +139,26 @@ func (r *NetworkFirewallService) Delete(ctx context.Context, id int64, opts ...o
 
 type NetworkFirewall struct {
 	// The ID of the Network Firewall record
-	ID int64 `json:"id,required"`
+	ID int64 `json:"id" api:"required"`
 	// Timestamp, in ISO format, of when the Network Firewall record was created.
-	Created string `json:"created,required"`
+	Created string `json:"created" api:"required"`
 	// The user-friendly name given to this Network Firewall instance
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// The id of the Project that this Network Firewall belongs to
-	ProjectID int64 `json:"project_id,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
 	// List of rules for this Network Firewall.
-	Rules []NetworkFirewallRule `json:"rules,required"`
+	Rules []NetworkFirewallRule `json:"rules" api:"required"`
 	// An array of the specs for the Network Firewall
-	Specs []Bom `json:"specs,required"`
+	Specs []Bom `json:"specs" api:"required"`
 	// The current state of the Network Firewall
-	State string `json:"state,required"`
+	State string `json:"state" api:"required"`
 	// The type of the Network Firewall
-	Type string `json:"type,required"`
+	Type string `json:"type" api:"required"`
 	// Timestamp, in ISO format, of when the Network Firewall record was last updated.
-	Updated string `json:"updated,required"`
+	Updated string `json:"updated" api:"required"`
 	// URL that can be used to run methods in the API associated with the Network
 	// Firewall instance.
-	Uri string `json:"uri,required" format:"url"`
+	Uri string `json:"uri" api:"required" format:"url"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -254,7 +254,7 @@ type NetworkFirewallUpdateParam struct {
 	// current states:
 	//
 	// - running -> update_running or delete
-	State string `json:"state,required"`
+	State string `json:"state" api:"required"`
 	// The user-friendly name for the Network Firewall type. If not sent, it will
 	// default to current name.
 	Name param.Opt[string] `json:"name,omitzero"`
@@ -388,7 +388,7 @@ func (r *NetworkFirewallListResponse) UnmarshalJSON(data []byte) error {
 type NetworkFirewallNewParams struct {
 	// The ID of the Project which this Network Firewall should be created in. Each
 	// project can have exactly ONE project firewall and ONE geo firewall maximum.
-	ProjectID int64 `json:"project_id,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
 	// The user-friendly name for the Network Firewall type. If not sent and the type
 	// is "geo", it will default to the name 'Geofilter'. If not sent and the type is
 	// "project", it will default to the name 'Firewall'.

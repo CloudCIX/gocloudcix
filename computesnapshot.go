@@ -137,29 +137,29 @@ func (r *ComputeSnapshotService) Delete(ctx context.Context, id int64, opts ...o
 
 type ComputeSnapshot struct {
 	// The ID of the Compute Snapshots record
-	ID int64 `json:"id,required"`
+	ID int64 `json:"id" api:"required"`
 	// Timestamp, in ISO format, of when the Compute Snapshots record was created.
-	Created string `json:"created,required"`
+	Created string `json:"created" api:"required"`
 	// The Compute Instance the Compute Snapshot record is of.
-	Instance ComputeSnapshotInstance `json:"instance,required"`
+	Instance ComputeSnapshotInstance `json:"instance" api:"required"`
 	// The metadata details of the The metadata details of the "hyperv" Compute
 	// Snapshot. Returned if the type is "hyperv".
-	Metadata ComputeSnapshotMetadata `json:"metadata,required"`
+	Metadata ComputeSnapshotMetadata `json:"metadata" api:"required"`
 	// The user-friendly name given to this Compute Snapshots instance
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// The id of the Project that this Compute Snapshots belongs to
-	ProjectID int64 `json:"project_id,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
 	// An array of the specs for the Compute Snapshots
-	Specs []Bom `json:"specs,required"`
+	Specs []Bom `json:"specs" api:"required"`
 	// The current state of the Compute Snapshots
-	State string `json:"state,required"`
+	State string `json:"state" api:"required"`
 	// The type of the Compute Snapshots
-	Type string `json:"type,required"`
+	Type string `json:"type" api:"required"`
 	// Timestamp, in ISO format, of when the Compute Snapshots record was last updated.
-	Updated string `json:"updated,required"`
+	Updated string `json:"updated" api:"required"`
 	// URL that can be used to run methods in the API associated with the Compute
 	// Snapshots instance.
-	Uri string `json:"uri,required" format:"url"`
+	Uri string `json:"uri" api:"required" format:"url"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -254,7 +254,7 @@ type ComputeSnapshotUpdateParam struct {
 	// current states:
 	//
 	// - running -> update_running or delete
-	State string `json:"state,required"`
+	State string `json:"state" api:"required"`
 	// The user-friendly name for the Compute Snapshots Resource. If not sent, it will
 	// default to the name current name.
 	Name param.Opt[string] `json:"name,omitzero"`
@@ -298,10 +298,10 @@ func (r *ComputeSnapshotListResponse) UnmarshalJSON(data []byte) error {
 
 type ComputeSnapshotNewParams struct {
 	// The id of the Compute Instance the Compute Snapshot is to be taken of.
-	InstanceID int64 `json:"instance_id,required"`
+	InstanceID int64 `json:"instance_id" api:"required"`
 	// The ID of the User's Project into which this new Compute Snapshots should be
 	// added.
-	ProjectID int64 `json:"project_id,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
 	// The user-friendly name for the Compute Snapshot Resource. If not sent, it will
 	// default to the name "Compute Snapshot"
 	Name param.Opt[string] `json:"name,omitzero"`
