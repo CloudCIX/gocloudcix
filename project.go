@@ -125,30 +125,30 @@ func (r *ProjectService) List(ctx context.Context, query ProjectListParams, opts
 
 type Project struct {
 	// The ID of the Project.
-	ID int64 `json:"id,required"`
+	ID int64 `json:"id" api:"required"`
 	// The ID of the Project address.
-	AddressID int64 `json:"address_id,required"`
+	AddressID int64 `json:"address_id" api:"required"`
 	// A flag stating whether or not the Project is classified as closed. A Project is
 	// classified as closed when all the infrastructure in it is in a Closed (99)
 	// state.
-	Closed bool `json:"closed,required"`
+	Closed bool `json:"closed" api:"required"`
 	// The date that the Project entry was created
-	Created string `json:"created,required"`
+	Created string `json:"created" api:"required"`
 	// The ID of the User that manages the Project
-	ManagerID int64 `json:"manager_id,required"`
+	ManagerID int64 `json:"manager_id" api:"required"`
 	// The name of the Project.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// The note attached to the Project.
-	Note string `json:"note,required"`
+	Note string `json:"note" api:"required"`
 	// The region ID that the Project is in.
-	RegionID int64 `json:"region_id,required"`
+	RegionID int64 `json:"region_id" api:"required"`
 	// The Address ID that will send the bill for the Project to the customer.
-	ResellerID int64 `json:"reseller_id,required"`
+	ResellerID int64 `json:"reseller_id" api:"required"`
 	// The date that the Project entry was last updated
-	Updated string `json:"updated,required"`
+	Updated string `json:"updated" api:"required"`
 	// The absolute URL of the Project that can be used to perform `Read`, `Update` and
 	// `Delete`
-	Uri string `json:"uri,required"`
+	Uri string `json:"uri" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -234,9 +234,9 @@ func (r *ProjectListResponse) UnmarshalJSON(data []byte) error {
 
 type ProjectNewParams struct {
 	// The name of the Project. Must be unique within an Address' Project collection.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// The Address ID of the CloudCIX region that the Project will be deployed in.
-	RegionID int64 `json:"region_id,required"`
+	RegionID int64 `json:"region_id" api:"required"`
 	// An optional note providing a description of what the Project is used for.
 	Note param.Opt[string] `json:"note,omitzero"`
 	paramObj

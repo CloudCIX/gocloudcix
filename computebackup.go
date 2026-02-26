@@ -137,26 +137,26 @@ func (r *ComputeBackupService) Delete(ctx context.Context, id int64, opts ...opt
 
 type ComputeBackup struct {
 	// The ID of the Compute Backups record
-	ID int64 `json:"id,required"`
+	ID int64 `json:"id" api:"required"`
 	// Timestamp, in ISO format, of when the Compute Backups record was created.
-	Created string `json:"created,required"`
+	Created string `json:"created" api:"required"`
 	// The Compute Instance the Compute Backup record is of.
-	Instance ComputeBackupInstance `json:"instance,required"`
+	Instance ComputeBackupInstance `json:"instance" api:"required"`
 	// The user-friendly name given to this Compute Backups instance
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// The id of the Project that this Compute Backups belongs to
-	ProjectID int64 `json:"project_id,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
 	// An array of the specs for the Compute Backups
-	Specs []Bom `json:"specs,required"`
+	Specs []Bom `json:"specs" api:"required"`
 	// The current state of the Compute Backups
-	State string `json:"state,required"`
+	State string `json:"state" api:"required"`
 	// The type of the Compute Backups
-	Type string `json:"type,required"`
+	Type string `json:"type" api:"required"`
 	// Timestamp, in ISO format, of when the Compute Backups record was last updated.
-	Updated string `json:"updated,required"`
+	Updated string `json:"updated" api:"required"`
 	// URL that can be used to run methods in the API associated with the Compute
 	// Backups instance.
-	Uri string `json:"uri,required" format:"url"`
+	Uri string `json:"uri" api:"required" format:"url"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -243,16 +243,16 @@ func (r *ComputeBackupUpdateParam) UnmarshalJSON(data []byte) error {
 
 type ListMetadata struct {
 	// The value of limit that was used for the request
-	Limit int64 `json:"limit,required"`
+	Limit int64 `json:"limit" api:"required"`
 	// The value of order that was used for the request
-	Order string `json:"order,required"`
+	Order string `json:"order" api:"required"`
 	// The value of page that was used for the request
-	Page int64 `json:"page,required"`
+	Page int64 `json:"page" api:"required"`
 	// The total number of records found for the given search
-	TotalRecords int64 `json:"total_records,required"`
+	TotalRecords int64 `json:"total_records" api:"required"`
 	// A list of warnings generated during execution. Any invalid search filters used
 	// will cause a warning to be generated, for example.
-	Warnings []string `json:"warnings,required"`
+	Warnings []string `json:"warnings" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Limit        respjson.Field
@@ -300,10 +300,10 @@ func (r *ComputeBackupListResponse) UnmarshalJSON(data []byte) error {
 
 type ComputeBackupNewParams struct {
 	// The id of the Compute Instance the Compute Backup is to be taken of.
-	InstanceID int64 `json:"instance_id,required"`
+	InstanceID int64 `json:"instance_id" api:"required"`
 	// The ID of the User's Project into which this new Compute Backups should be
 	// added.
-	ProjectID int64 `json:"project_id,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
 	// The user-friendly name for the Compute Backup. If not sent, it will default to
 	// the name "Backup HyperV" or "Backup LXD" depending on the type chosen.
 	Name param.Opt[string] `json:"name,omitzero"`

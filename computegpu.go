@@ -137,24 +137,24 @@ func (r *ComputeGPUService) Attach(ctx context.Context, body ComputeGPUAttachPar
 
 type ComputeGPU struct {
 	// The ID of the Compute GPU record
-	ID int64 `json:"id,required"`
+	ID int64 `json:"id" api:"required"`
 	// Timestamp, in ISO format, of when the Compute GPU record was created.
-	Created string `json:"created,required"`
+	Created string `json:"created" api:"required"`
 	// The "lxd" Compute Instance the Compute GPU is attached to.
-	Instance ComputeGPUInstance `json:"instance,required"`
+	Instance ComputeGPUInstance `json:"instance" api:"required"`
 	// The user-friendly name given to this Compute GPU
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// The id of the Project that this Compute GPU belongs to
-	ProjectID int64 `json:"project_id,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
 	// An array of the specs for the Compute GPU
-	Specs []Bom `json:"specs,required"`
+	Specs []Bom `json:"specs" api:"required"`
 	// The current state of the Compute GPU
-	State string `json:"state,required"`
+	State string `json:"state" api:"required"`
 	// Timestamp, in ISO format, of when the Compute GPU record was last updated.
-	Updated string `json:"updated,required"`
+	Updated string `json:"updated" api:"required"`
 	// URL that can be used to run methods in the API associated with the Compute GPU
 	// instance.
-	Uri string `json:"uri,required" format:"url"`
+	Uri string `json:"uri" api:"required" format:"url"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -304,11 +304,11 @@ func (r ComputeGPUListParams) URLQuery() (v url.Values, err error) {
 
 type ComputeGPUAttachParams struct {
 	// The ID of the LXD Resource the GPU is requested to be mounted to.
-	InstanceID int64 `json:"instance_id,required"`
+	InstanceID int64 `json:"instance_id" api:"required"`
 	// The ID of the Project which this GPU Resource should be in.
-	ProjectID int64 `json:"project_id,required"`
+	ProjectID int64 `json:"project_id" api:"required"`
 	// List of specs (SKUs) for the GPU resource.
-	Specs []ComputeGPUAttachParamsSpec `json:"specs,omitzero,required"`
+	Specs []ComputeGPUAttachParamsSpec `json:"specs,omitzero" api:"required"`
 	// The user-friendly name for the Compute GPU. If not sent, it will default to the
 	// name 'GPU'
 	Name param.Opt[string] `json:"name,omitzero"`

@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.6.2 (2026-02-25)
+
+Full Changelog: [v0.6.1...v0.6.2](https://github.com/CloudCIX/gocloudcix/compare/v0.6.1...v0.6.2)
+
+### Bug Fixes
+
+* allow canceling a request while it is waiting to retry ([f655c82](https://github.com/CloudCIX/gocloudcix/commit/f655c828dbcce86d9a8295426311f22a05eb385d))
+* **encoder:** correctly serialize NullStruct ([e0f6b90](https://github.com/CloudCIX/gocloudcix/commit/e0f6b906b707959b911c60b73ceea7ea91f4976a))
+
+
+### Chores
+
+* **internal:** move custom custom `json` tags to `api` ([89fb981](https://github.com/CloudCIX/gocloudcix/commit/89fb9810ddbe05bbf6638d749212c0ad1b30691a))
+* **internal:** remove mock server code ([e98926b](https://github.com/CloudCIX/gocloudcix/commit/e98926b1e4d78d1624a8a4791c1ad32224714895))
+* update mock server docs ([7ef2f51](https://github.com/CloudCIX/gocloudcix/commit/7ef2f51cba7790f1dccee822bbbb69c678f5d15d))
+
 ## 0.6.1 (2026-01-28)
 
 Full Changelog: [v0.6.0...v0.6.1](https://github.com/CloudCIX/gocloudcix/compare/v0.6.0...v0.6.1)
