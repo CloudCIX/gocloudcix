@@ -19,6 +19,24 @@ import (
 	"github.com/CloudCIX/gocloudcix/packages/respjson"
 )
 
+// Management of GPU Resources
+//
+// This module provides API endpoints for managing GPU (Graphics Processing Unit)
+// resources within the CloudCIX Compute platform. GPUs are physical hardware
+// accelerators that can be attached to LXD instances to provide enhanced
+// computational capabilities for workloads such as machine learning, AI training,
+// scientific simulations, and graphics rendering.
+//
+// Available operations:
+//
+// - List and filter GPU resources across your projects
+// - Attach GPUs to running LXD instances by creating new GPU resources
+// - Retrieve individual GPU configuration and status details
+// - Detach GPUs from instances by updating the state to delete
+//
+// Each GPU resource includes its associated LXD instance, capacity specifications
+// (SKUs), current state, and project information.
+//
 // ComputeGPUService contains methods and other services that help with interacting
 // with the gocloudcix API.
 //

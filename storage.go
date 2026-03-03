@@ -14,6 +14,22 @@ import (
 // the [NewStorageService] method instead.
 type StorageService struct {
 	Options []option.RequestOption
+	// Management of Storage Volumes
+	//
+	// Storage volumes provide additional storage capacity for compute instances.
+	//
+	// Two types are supported:
+	//
+	//   - CephFS: Network-attached file system volumes that can be mounted to multiple
+	//     LXD instances
+	//   - HyperV: Secondary drives attached to Hyper-V instances
+	//
+	// SKU Configuration: Storage capacity is specified using SKUs (Stock Keeping
+	// Units) with quantity in GB.
+	//
+	//   - Ceph volumes use Ceph storage SKUs (CEPH_001 for HDD, CEPH_002 for SSD)
+	//   - Hyper-V volumes use storage SKUs (e.g., SSD_001, HDD_001) Available SKUs
+	//     depend on your region's configured devices.
 	Volumes StorageVolumeService
 }
 
