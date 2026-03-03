@@ -19,6 +19,24 @@ import (
 	"github.com/CloudCIX/gocloudcix/packages/respjson"
 )
 
+// Management of Instance Snapshots
+//
+// This module provides API endpoints for managing snapshots of virtual machine and
+// container instances in the CloudCIX Compute platform. Snapshots are
+// point-in-time backups of running instances that can be used for data recovery
+// from a known state. Two snapshot types are supported: LXD snapshots (for Linux
+// containers and VMs) and Hyper-V snapshots (for Windows VMs).
+//
+// Available operations:
+//
+// - List and filter snapshots across your projects by type, instance, or state
+// - Create new snapshots from running LXD or Hyper-V instances
+// - Retrieve detailed information about individual snapshots
+// - Delete snapshots by updating their state
+//
+// Each snapshot includes its associated instance, project, creation timestamp, and
+// current state.
+//
 // ComputeSnapshotService contains methods and other services that help with
 // interacting with the gocloudcix API.
 //

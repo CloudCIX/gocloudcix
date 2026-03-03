@@ -19,6 +19,10 @@ import (
 	"github.com/CloudCIX/gocloudcix/packages/respjson"
 )
 
+// Management of Network VPNs Supported Types are:
+//
+// - site-to-site
+//
 // NetworkVpnService contains methods and other services that help with interacting
 // with the gocloudcix API.
 //
