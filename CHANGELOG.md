@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.6.3 (2026-03-07)
+
+Full Changelog: [v0.6.2...v0.6.3](https://github.com/CloudCIX/gocloudcix/compare/v0.6.2...v0.6.3)
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([2f12332](https://github.com/CloudCIX/gocloudcix/commit/2f1233254fe5910b92aa16a4abd81323282948bb))
+* **internal:** codegen related update ([db29f5b](https://github.com/CloudCIX/gocloudcix/commit/db29f5b5b1df4d27f1a961c73efc92a94404c4fa))
+* **internal:** codegen related update ([ba9ad61](https://github.com/CloudCIX/gocloudcix/commit/ba9ad617485ade9a30c14c005deca8b6ed6f0607))
+
 ## 0.6.2 (2026-02-25)
 
 Full Changelog: [v0.6.1...v0.6.2](https://github.com/CloudCIX/gocloudcix/compare/v0.6.1...v0.6.2)
