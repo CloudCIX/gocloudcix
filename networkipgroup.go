@@ -82,10 +82,10 @@ func (r *NetworkIPGroupService) New(ctx context.Context, body NetworkIPGroupNewP
 	path := "network/ip_groups/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve detailed information about a specific Network IP Group including its
@@ -96,10 +96,10 @@ func (r *NetworkIPGroupService) Get(ctx context.Context, id int64, opts ...optio
 	path := fmt.Sprintf("network/ip_groups/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Update a Network IP Group's configuration. Modify the group name, IP version, or
@@ -111,10 +111,10 @@ func (r *NetworkIPGroupService) Update(ctx context.Context, id int64, body Netwo
 	path := fmt.Sprintf("network/ip_groups/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve a paginated list of Network IP Groups.
@@ -150,7 +150,7 @@ func (r *NetworkIPGroupService) List(ctx context.Context, query NetworkIPGroupLi
 	opts = slices.Concat(r.Options, opts)
 	path := "network/ip_groups/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete an Network IP Group from the system. Only project type Network IP Groups
@@ -160,7 +160,7 @@ func (r *NetworkIPGroupService) Delete(ctx context.Context, id int64, opts ...op
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := fmt.Sprintf("network/ip_groups/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 type NetworkIPGroup struct {

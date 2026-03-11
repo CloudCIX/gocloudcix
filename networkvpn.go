@@ -49,10 +49,10 @@ func (r *NetworkVpnService) New(ctx context.Context, body NetworkVpnNewParams, o
 	path := "network/vpns/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Attempt to read a Network VPN Resource record by the given `id`, returning a 404
@@ -63,10 +63,10 @@ func (r *NetworkVpnService) Get(ctx context.Context, id int64, opts ...option.Re
 	path := fmt.Sprintf("network/vpns/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Attempt to update a Network VPN Resource record by the given `id`, returning a
@@ -77,10 +77,10 @@ func (r *NetworkVpnService) Update(ctx context.Context, id int64, body NetworkVp
 	path := fmt.Sprintf("network/vpns/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve a list of Network VPNs Resources
@@ -120,7 +120,7 @@ func (r *NetworkVpnService) List(ctx context.Context, query NetworkVpnListParams
 	opts = slices.Concat(r.Options, opts)
 	path := "network/vpns/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // This method allows the User to delete a specified Network VPN.
@@ -129,7 +129,7 @@ func (r *NetworkVpnService) Delete(ctx context.Context, id int64, opts ...option
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := fmt.Sprintf("network/vpns/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 type NetworkVpn struct {

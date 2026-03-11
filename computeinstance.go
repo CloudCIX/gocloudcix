@@ -73,10 +73,10 @@ func (r *ComputeInstanceService) New(ctx context.Context, body ComputeInstanceNe
 	path := "compute/instances/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve detailed information about a specific compute instance, including its
@@ -88,10 +88,10 @@ func (r *ComputeInstanceService) Get(ctx context.Context, id int64, opts ...opti
 	path := fmt.Sprintf("compute/instances/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Update a compute instance to modify its configuration or change its state. You
@@ -104,10 +104,10 @@ func (r *ComputeInstanceService) Update(ctx context.Context, id int64, body Comp
 	path := fmt.Sprintf("compute/instances/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve a paginated list of compute instances (LXD and/or Hyper-V) across your
@@ -150,7 +150,7 @@ func (r *ComputeInstanceService) List(ctx context.Context, query ComputeInstance
 	opts = slices.Concat(r.Options, opts)
 	path := "compute/instances/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // This method allows the User to delete a Compute Instance immediately. The grace
@@ -161,7 +161,7 @@ func (r *ComputeInstanceService) Delete(ctx context.Context, id int64, opts ...o
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := fmt.Sprintf("compute/instances/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 type Bom struct {
