@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.6.4 (2026-03-11)
+
+Full Changelog: [v0.6.3...v0.6.4](https://github.com/CloudCIX/gocloudcix/compare/v0.6.3...v0.6.4)
+
+### Chores
+
+* **internal:** minor cleanup ([f47c031](https://github.com/CloudCIX/gocloudcix/commit/f47c031d4a6368860a4291f2f0cfc6ae7a60f676))
+* **internal:** use explicit returns ([2350c4e](https://github.com/CloudCIX/gocloudcix/commit/2350c4e842a52d724c1f3eec795736332f1bbdab))
+* **internal:** use explicit returns in more places ([f7c59df](https://github.com/CloudCIX/gocloudcix/commit/f7c59dfe60d5fa159be3f8913b4928041a5173c7))
+
 ## 0.6.3 (2026-03-07)
 
 Full Changelog: [v0.6.2...v0.6.3](https://github.com/CloudCIX/gocloudcix/compare/v0.6.2...v0.6.3)
