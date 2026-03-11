@@ -38,7 +38,7 @@ func TestUserAgentHeader(t *testing.T) {
 			},
 		}),
 	)
-	client.Compute.Backups.List(context.Background(), gocloudcix.ComputeBackupListParams{})
+	_, _ = client.Compute.Backups.List(context.Background(), gocloudcix.ComputeBackupListParams{})
 	if userAgent != fmt.Sprintf("Gocloudcix/Go %s", internal.PackageVersion) {
 		t.Errorf("Expected User-Agent to be correct, but got: %#v", userAgent)
 	}
