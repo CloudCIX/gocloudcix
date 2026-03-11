@@ -99,10 +99,10 @@ func (r *NetworkFirewallService) New(ctx context.Context, body NetworkFirewallNe
 	path := "network/firewalls/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve detailed information about a specific firewall configuration, including
@@ -114,10 +114,10 @@ func (r *NetworkFirewallService) Get(ctx context.Context, id int64, opts ...opti
 	path := fmt.Sprintf("network/firewalls/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Update a firewall configuration to modify its name, rules, or state. You can
@@ -129,10 +129,10 @@ func (r *NetworkFirewallService) Update(ctx context.Context, id int64, body Netw
 	path := fmt.Sprintf("network/firewalls/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve a paginated list of network firewall configurations across your
@@ -174,7 +174,7 @@ func (r *NetworkFirewallService) List(ctx context.Context, query NetworkFirewall
 	opts = slices.Concat(r.Options, opts)
 	path := "network/firewalls/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // This method allows the User to delete a Network Firewall immediately. The grace
@@ -185,7 +185,7 @@ func (r *NetworkFirewallService) Delete(ctx context.Context, id int64, opts ...o
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := fmt.Sprintf("network/firewalls/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 type NetworkFirewall struct {

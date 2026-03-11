@@ -95,10 +95,10 @@ func (r *NetworkRouterService) New(ctx context.Context, body NetworkRouterNewPar
 	path := "network/routers/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve detailed information about a specific network router configuration,
@@ -110,10 +110,10 @@ func (r *NetworkRouterService) Get(ctx context.Context, id int64, opts ...option
 	path := fmt.Sprintf("network/routers/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Update a network router to modify its name, add new private networks, rename
@@ -127,10 +127,10 @@ func (r *NetworkRouterService) Update(ctx context.Context, id int64, body Networ
 	path := fmt.Sprintf("network/routers/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve a paginated list of network routers from all your projects. Each
@@ -173,7 +173,7 @@ func (r *NetworkRouterService) List(ctx context.Context, query NetworkRouterList
 	opts = slices.Concat(r.Options, opts)
 	path := "network/routers/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // This method allows the User to delete a Network Router immediately. The grace
@@ -184,7 +184,7 @@ func (r *NetworkRouterService) Delete(ctx context.Context, id int64, opts ...opt
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := fmt.Sprintf("network/routers/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 type BaseIPAddress struct {
