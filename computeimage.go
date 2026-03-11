@@ -57,10 +57,10 @@ func (r *ComputeImageService) Get(ctx context.Context, id int64, opts ...option.
 	path := fmt.Sprintf("compute/images/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve a paginated list of available operating system images. Supports
@@ -95,7 +95,7 @@ func (r *ComputeImageService) List(ctx context.Context, query ComputeImageListPa
 	opts = slices.Concat(r.Options, opts)
 	path := "compute/images/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type ComputeImage struct {

@@ -65,10 +65,10 @@ func (r *ProjectService) New(ctx context.Context, body ProjectNewParams, opts ..
 	path := "project/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve detailed information about a specific project, including its region,
@@ -79,10 +79,10 @@ func (r *ProjectService) Get(ctx context.Context, id int64, opts ...option.Reque
 	path := fmt.Sprintf("project/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Update a project to modify its name or notes. Projects cannot be moved between
@@ -93,10 +93,10 @@ func (r *ProjectService) Update(ctx context.Context, id int64, body ProjectUpdat
 	path := fmt.Sprintf("project/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve a paginated list of your cloud projects. Supports filtering by region,
@@ -138,7 +138,7 @@ func (r *ProjectService) List(ctx context.Context, query ProjectListParams, opts
 	opts = slices.Concat(r.Options, opts)
 	path := "project/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 type Project struct {

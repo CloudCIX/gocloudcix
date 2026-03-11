@@ -65,10 +65,10 @@ func (r *ComputeGPUService) Get(ctx context.Context, id int64, opts ...option.Re
 	path := fmt.Sprintf("compute/gpus/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Update a GPU resource to change its state. Set state to delete to initiate
@@ -79,10 +79,10 @@ func (r *ComputeGPUService) Update(ctx context.Context, id int64, body ComputeGP
 	path := fmt.Sprintf("compute/gpus/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve a paginated list of GPU resources across your projects. Supports
@@ -124,7 +124,7 @@ func (r *ComputeGPUService) List(ctx context.Context, query ComputeGPUListParams
 	opts = slices.Concat(r.Options, opts)
 	path := "compute/gpus/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // This method allows the User to delete a specified Compute GPU. Requesting to
@@ -135,7 +135,7 @@ func (r *ComputeGPUService) Delete(ctx context.Context, id int64, opts ...option
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := fmt.Sprintf("compute/gpus/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 // Attach a GPU hardware accelerator to a running LXD instance. Specify the target
@@ -147,10 +147,10 @@ func (r *ComputeGPUService) Attach(ctx context.Context, body ComputeGPUAttachPar
 	path := "compute/gpus/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 type ComputeGPU struct {

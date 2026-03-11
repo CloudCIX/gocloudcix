@@ -69,10 +69,10 @@ func (r *ComputeBackupService) New(ctx context.Context, body ComputeBackupNewPar
 	path := "compute/backups/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve detailed information about a specific backup, including its type (LXD
@@ -84,10 +84,10 @@ func (r *ComputeBackupService) Get(ctx context.Context, id int64, opts ...option
 	path := fmt.Sprintf("compute/backups/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Update a backup to change its name or state. Set state to delete to initiate
@@ -98,10 +98,10 @@ func (r *ComputeBackupService) Update(ctx context.Context, id int64, body Comput
 	path := fmt.Sprintf("compute/backups/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve a paginated list of instance backups (LXD and/or Hyper-V) across your
@@ -145,7 +145,7 @@ func (r *ComputeBackupService) List(ctx context.Context, query ComputeBackupList
 	opts = slices.Concat(r.Options, opts)
 	path := "compute/backups/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // This method allows the User to delete a specified Compute Backup.
@@ -154,7 +154,7 @@ func (r *ComputeBackupService) Delete(ctx context.Context, id int64, opts ...opt
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := fmt.Sprintf("compute/backups/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 type ComputeBackup struct {

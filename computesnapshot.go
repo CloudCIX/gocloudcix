@@ -65,10 +65,10 @@ func (r *ComputeSnapshotService) New(ctx context.Context, body ComputeSnapshotNe
 	path := "compute/snapshots/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve detailed information about a specific snapshot, including its type (LXD
@@ -80,10 +80,10 @@ func (r *ComputeSnapshotService) Get(ctx context.Context, id int64, opts ...opti
 	path := fmt.Sprintf("compute/snapshots/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Update a snapshot to change its name or state. Set state to delete to initiate
@@ -94,10 +94,10 @@ func (r *ComputeSnapshotService) Update(ctx context.Context, id int64, body Comp
 	path := fmt.Sprintf("compute/snapshots/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve a paginated list of instance snapshots (LXD and/or Hyper-V) across your
@@ -141,7 +141,7 @@ func (r *ComputeSnapshotService) List(ctx context.Context, query ComputeSnapshot
 	opts = slices.Concat(r.Options, opts)
 	path := "compute/snapshots/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // This method allows the User to delete a specified Compute Snapshot.
@@ -150,7 +150,7 @@ func (r *ComputeSnapshotService) Delete(ctx context.Context, id int64, opts ...o
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := fmt.Sprintf("compute/snapshots/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 type ComputeSnapshot struct {

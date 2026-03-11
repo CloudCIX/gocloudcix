@@ -65,10 +65,10 @@ func (r *StorageVolumeService) New(ctx context.Context, body StorageVolumeNewPar
 	path := "storage/volumes/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve detailed information about a specific storage volume including its
@@ -79,10 +79,10 @@ func (r *StorageVolumeService) Get(ctx context.Context, id int64, opts ...option
 	path := fmt.Sprintf("storage/volumes/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Update a storage volume's configuration. Modify volume name, increase storage
@@ -94,10 +94,10 @@ func (r *StorageVolumeService) Update(ctx context.Context, id int64, body Storag
 	path := fmt.Sprintf("storage/volumes/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &env, opts...)
 	if err != nil {
-		return
+		return nil, err
 	}
 	res = &env.Content
-	return
+	return res, nil
 }
 
 // Retrieve a paginated list of storage volumes accessible to the requesting user.
@@ -139,7 +139,7 @@ func (r *StorageVolumeService) List(ctx context.Context, query StorageVolumeList
 	opts = slices.Concat(r.Options, opts)
 	path := "storage/volumes/"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	return res, err
 }
 
 // This method allows the User to delete a specified Storage Volume.
@@ -148,7 +148,7 @@ func (r *StorageVolumeService) Delete(ctx context.Context, id int64, opts ...opt
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := fmt.Sprintf("storage/volumes/%v/", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 type StorageVolumes struct {
