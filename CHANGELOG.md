@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.5 (2026-03-17)
+
+Full Changelog: [v0.6.4...v0.6.5](https://github.com/CloudCIX/gocloudcix/compare/v0.6.4...v0.6.5)
+
+### Chores
+
+* **internal:** tweak CI branches ([087ff74](https://github.com/CloudCIX/gocloudcix/commit/087ff74d277d7ed94029f352dfbd444ed3ea7f42))
+
 ## 0.6.4 (2026-03-11)
 
 Full Changelog: [v0.6.3...v0.6.4](https://github.com/CloudCIX/gocloudcix/compare/v0.6.3...v0.6.4)
